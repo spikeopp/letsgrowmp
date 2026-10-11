@@ -1,0 +1,672 @@
+<title>Murachh Civic Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a clean civic register on white — sticky tab strip, one column of sections, light-blue panels. Single light theme by design. */
+:root{
+  --bg:#FFFFFF; --panel:#F3F8FE; --ink:#0F2742; --muted:#4F6782; --line:#D3E3F4;
+  --accent:#1D6FC4; --accent-deep:#0F4F92; --accent-soft:#E2EFFC; --sky:#BFDCF7;
+  --ochre:#94600F; --ochre-soft:#FBF1DE; --red:#B3261E; --red-soft:#FBE7E5; --green:#2E7D32;
+  --f-display:"Source Serif 4",Georgia,serif;
+  --f-body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,label:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:980px;margin:0 auto;padding-inline:16px}
+header.top{padding-block:32px 22px;background:linear-gradient(180deg,var(--accent-soft),var(--bg));border-bottom:1px solid var(--line)}
+.crumb{font-family:var(--f-mono);font-size:12.5px;color:var(--muted);letter-spacing:.04em;display:flex;flex-wrap:wrap;gap:6px}
+.crumb b{color:var(--accent);font-weight:500}
+h1{font-family:var(--f-display);font-weight:600;font-size:clamp(30px,5vw,44px);line-height:1.15;margin:.3em 0 .25em;text-wrap:balance}
+.lede{color:var(--muted);max-width:65ch;margin:0}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto;padding-block:8px;scrollbar-width:none}
+nav.tabs button{flex:0 0 auto;font:500 14.5px var(--f-body);color:var(--muted);background:none;border:1px solid transparent;border-radius:6px;padding:6px 12px;cursor:pointer}
+nav.tabs button:hover{color:var(--ink);background:var(--panel)}
+nav.tabs button[aria-selected="true"]{color:var(--accent);background:var(--accent-soft);border-color:var(--sky)}
+main section{padding-block:28px 48px}
+h2{font-family:var(--f-display);font-weight:600;font-size:28px;margin:0 0 6px;text-wrap:balance}
+h3{font-size:17px;margin:0 0 4px}
+.sub{color:var(--muted);margin:0 0 22px;max-width:65ch}
+.label{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.note{border-left:3px solid var(--accent);background:var(--accent-soft);padding:10px 14px;border-radius:0 6px 6px 0;font-size:14.5px;margin:0 0 20px}
+.note.warn{border-color:var(--ochre);background:var(--ochre-soft)}
+.note.red{border-color:var(--red);background:var(--red-soft)}
+/* hierarchy */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:680px){.tracks{grid-template-columns:1fr}}
+.track{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px}
+.track ol{list-style:none;margin:12px 0 0;padding:0}
+.track li{position:relative;padding:8px 0 8px 22px;border-left:2px solid var(--sky);margin-left:6px}
+.track li::before{content:"";position:absolute;left:-7px;top:15px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+.track li b{display:block}
+.track li span{color:var(--muted);font-size:14px}
+.track li.here::before{background:var(--accent)}
+/* officer table */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:14.5px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font-family:var(--f-mono);font-weight:500;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--panel)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--panel) 55%,var(--bg))}
+tr:last-child td{border-bottom:0}
+td.lvl{font-family:var(--f-mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.pill{display:inline-block;font-family:var(--f-mono);font-size:11px;padding:1px 7px;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
+.pill.el{color:var(--accent)} .pill.gov{color:var(--ochre)}
+/* source cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.card .what{font-size:14.5px;color:var(--muted);margin:0}
+.card ol{margin:0;padding-left:20px;font-size:14px}
+.card .url{font-family:var(--f-mono);font-size:13px;word-break:break-all;margin-top:auto}
+/* red flags */
+.flags{display:flex;flex-direction:column;gap:22px}
+.flag{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:12px 14px;background:var(--bg);border:1px solid var(--line);border-left-width:4px;border-radius:6px;margin-top:8px;cursor:pointer}
+.flag.hi{border-left-color:var(--red)} .flag.md{border-left-color:var(--ochre)}
+.flag input{margin-top:5px;accent-color:var(--red);width:17px;height:17px}
+.flag .how{grid-column:2;font-size:13.5px;color:var(--muted)}
+.flag.on{background:var(--red-soft)}
+.tally{position:sticky;bottom:0;margin-top:20px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+.tally b{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+/* forms */
+.form{display:grid;grid-template-columns:1fr 1fr;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px}
+@media (max-width:680px){.form{grid-template-columns:1fr}}
+.form .full{grid-column:1/-1}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label,.field legend{font-size:13.5px;font-weight:500}
+input[type=text],select,textarea{font:inherit;font-size:15px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%}
+fieldset{border:0;padding:0;margin:0}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;font-size:14px}
+@media (max-width:680px){.checks{grid-template-columns:1fr}}
+.checks label{display:flex;gap:8px;align-items:flex-start;font-weight:400}
+.checks input{margin-top:5px;accent-color:var(--accent)}
+.btn{font:500 15px var(--f-body);background:var(--accent);color:var(--bg);border:0;border-radius:6px;padding:9px 16px;cursor:pointer}
+.btn.ghost{background:var(--bg);color:var(--accent);border:1px solid var(--accent)}
+.btn:disabled{opacity:.5;cursor:default}
+.out{white-space:pre-wrap;font-size:15px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:18px;margin-top:16px;line-height:1.75}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.toast{font-size:13.5px;color:var(--green)}
+/* ladder */
+.ladder{list-style:none;margin:0;padding:0;counter-reset:s;display:flex;flex-direction:column;gap:10px}
+.ladder li{counter-increment:s;display:grid;grid-template-columns:40px 1fr;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px}
+.ladder li::before{content:counter(s);font-family:var(--f-mono);font-size:20px;color:var(--accent);line-height:1.2}
+.ladder p{margin:2px 0 0;font-size:14.5px;color:var(--muted)}
+.ladder .url{font-family:var(--f-mono);font-size:13px;word-break:break-all}
+/* ask */
+.ask{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px}
+.ask textarea{min-height:84px;resize:vertical}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{font:14px var(--f-body);background:var(--bg);border:1px solid var(--sky);border-radius:99px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+.answer{white-space:pre-wrap;margin-top:16px;font-size:15.5px;line-height:1.7;min-height:1em}
+/* data dashboard */
+.muted{color:var(--muted);font-size:13.5px;font-weight:400}
+.fine{font-size:13px;color:var(--muted);margin:10px 0 0}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+@media (max-width:820px){.tiles{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:440px){.tiles{grid-template-columns:1fr}}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.tile .v{font-family:var(--f-display);font-size:28px;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
+.tile .k{font-size:13px;color:var(--muted)}
+.stat{display:inline-flex;gap:4px;align-items:center;font-size:12px;font-weight:500;padding:1px 8px;border-radius:99px;width:fit-content;white-space:nowrap}
+.stat.crit{color:var(--red);background:var(--red-soft)} .stat.warn{color:var(--ochre);background:var(--ochre-soft)} .stat.ok{color:var(--green);background:color-mix(in srgb,var(--green) 12%,var(--bg))}
+.panel{border:1px solid var(--line);border-radius:8px;padding:16px;background:var(--bg)}
+.phead{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.chartwrap{position:relative;overflow-x:auto}
+.chartwrap svg{display:block;min-width:620px;width:100%;height:auto}
+.chartwrap svg text{fill:var(--muted);font-family:var(--f-mono);font-size:10.5px}
+.chartwrap .bar{fill:var(--accent)} .chartwrap .bar.low{fill:var(--accent)} .chartwrap .bar.on{fill:var(--accent-deep)}
+.chartwrap .grid{stroke:var(--line);stroke-width:1}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12.5px;padding:7px 10px;border-radius:6px;white-space:nowrap;line-height:1.45;transform:translate(-50%,-100%)}
+.tip[hidden]{display:none}
+h3.sect{font-family:var(--f-display);font-size:22px;font-weight:600;margin:32px 0 6px}
+.aflags{display:flex;flex-direction:column;gap:10px}
+.af{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;border:1px solid var(--line);border-left-width:4px;border-radius:6px;padding:12px 14px;background:var(--bg)}
+.af.crit{border-left-color:var(--red)} .af.warn{border-left-color:var(--ochre)} .af.ok{border-left-color:var(--green)}
+.af .n{font-family:var(--f-display);font-size:24px;font-weight:600;line-height:1.1;min-width:2.5ch;font-variant-numeric:tabular-nums}
+.af p{margin:0;font-size:14px;color:var(--muted)}
+.af details{grid-column:2;font-size:13.5px}
+.af summary{cursor:pointer;color:var(--accent)}
+.af ul{margin:6px 0 0;padding-left:18px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.filters input{flex:1 1 240px;min-width:0}
+.filters select{flex:0 1 auto;width:auto}
+table.data{min-width:760px}
+table.data td.r,table.data th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.data td small{display:block;color:var(--muted);font-family:var(--f-mono);font-size:11px}
+table.data .chips2{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px}
+footer{border-top:1px solid var(--line);background:var(--panel);padding-block:20px 32px;color:var(--muted);font-size:13.5px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header class="top"><div class="wrap">
+  <div class="crumb"><span>Madhya Pradesh</span>›<span>Panna District</span>›<span>Pawai Tehsil / Janpad</span>›<b>Murachh Village</b></div>
+  <h1>Murachh Civic Guide</h1>
+  <p class="lede">From the Gram Panchayat up to the District Collector: who does what, where the money comes from, where its accounts are published, and what to do if something looks wrong. Everything here points to official public records.</p>
+</div></header>
+
+<nav class="tabs" aria-label="Sections"><div class="wrap" role="tablist">
+  <button role="tab" data-t="data" aria-selected="true">Murachh data</button>
+  <button role="tab" data-t="poocho">Ask</button>
+  <button role="tab" data-t="dhaancha">Structure</button>
+  <button role="tab" data-t="adhikari">Officials &amp; roles</button>
+  <button role="tab" data-t="paisa">Funds &amp; data</button>
+  <button role="tab" data-t="flags">Red flags</button>
+  <button role="tab" data-t="rti">RTI drafter</button>
+  <button role="tab" data-t="shikayat">Complaints</button>
+</div></nav>
+
+<main class="wrap">
+
+<!-- DATA -->
+<section id="data" role="tabpanel">
+  <h2>Murachh Gram Panchayat in numbers</h2>
+  <p class="sub" id="dmeta">Loading MGNREGA records for Murachh…</p>
+  <div id="dbody" hidden>
+    <div class="tiles" id="tiles"></div>
+
+    <div class="panel">
+      <div class="phead"><h3>MGNREGA spending by year the work was sanctioned</h3><span class="muted">₹ lakh · hover a bar for details</span></div>
+      <div class="chartwrap" id="chart"></div>
+      <p class="fine">Years marked <span class="stat crit">▲ wage &lt; 60%</span> spent less than 60% on wages. MGNREGA rules require at least 60% of a Gram Panchayat's spending to go to wages.</p>
+    </div>
+
+    <h3 class="sect">Automatic red flags</h3>
+    <p class="sub">Computed from the records below. Each is a lead to check with an RTI or a site visit, not proof that anyone did anything wrong.</p>
+    <div class="aflags" id="aflags"></div>
+
+    <h3 class="sect">All works <span class="muted" id="wcount"></span></h3>
+    <div class="filters">
+      <input type="text" id="wq" placeholder="Search work name or code (e.g. talab, road, Umariya)">
+      <select id="wfy" aria-label="Year"><option value="">All years</option></select>
+      <select id="wst" aria-label="Status"><option value="">All statuses</option></select>
+      <select id="wfl" aria-label="Flag"><option value="">All works</option><option value="flag">Flagged only</option></select>
+      <select id="wsort" aria-label="Sort"><option value="exp">Most spent first</option><option value="new">Newest first</option><option value="over">Biggest overrun first</option></select>
+    </div>
+    <div class="tbl"><table class="data">
+      <thead><tr><th>Year</th><th>Work</th><th>Status</th><th class="r">Estimate</th><th class="r">Spent</th><th class="r">Wage %</th><th class="r">Person-days</th></tr></thead>
+      <tbody id="wbody"></tbody>
+    </table></div>
+    <div class="row"><button class="btn ghost" id="wmore">Show more</button><span class="muted" id="wshown"></span></div>
+
+    <h3 class="sect">Material bills paid to vendors <span class="muted" id="bcount"></span></h3>
+    <p class="sub">From the "Material Procured" report, which lists bills for the current and previous financial year.</p>
+    <div class="tbl"><table class="data">
+      <thead><tr><th>Bill date</th><th>Vendor</th><th>Work</th><th>Bill no.</th><th class="r">Amount</th><th>Items</th></tr></thead>
+      <tbody id="bbody"></tbody>
+    </table></div>
+    <p class="note" style="margin-top:20px">Source: NREGASoft public reports for Gram Panchayat Murachh (code 1709004049), Block Pawai, District Panna. To check any row yourself, open <a href="https://nrega.dord.gov.in/stHome.aspx" target="_blank" rel="noopener">nrega.dord.gov.in</a> → Madhya Pradesh → Panna → Pawai → Murachh. Names in work titles are beneficiaries as published by the government.</p>
+  </div>
+  <p class="note warn" id="derr" hidden>The data file could not be loaded. The other sections still work.</p>
+</section>
+
+<!-- ASK -->
+<section id="poocho" role="tabpanel" hidden>
+  <h2>Ask a question</h2>
+  <p class="sub">Ask anything about Murachh, Pawai or Panna: where to find a scheme's spending, which official is responsible, what to request under RTI. Claude will answer.</p>
+  <div class="ask" id="askbox">
+    <div class="field"><label for="q">Your question</label>
+      <textarea id="q" placeholder="For example: How do I see the MGNREGA muster rolls for Murachh?"></textarea></div>
+    <div class="chips" id="chips">
+      <button class="chip">How do I check 15th Finance Commission spending?</button>
+      <button class="chip">What if a name on the PMAY-G housing list is wrong?</button>
+      <button class="chip">Who approves payments, the Sarpanch or the Secretary?</button>
+      <button class="chip">Where can I find the social audit report?</button>
+    </div>
+    <div class="row"><button class="btn" id="askbtn">Ask</button><span class="toast" id="askstat"></span></div>
+    <div class="answer" id="ans" aria-live="polite"></div>
+  </div>
+  <p class="note warn" id="asknote" hidden>Asking Claude is not available in this view. Every other section works fully.</p>
+  <p class="note">Claude has no live access to government websites. It tells you <b>where and how</b> to find the data. Verify every name and figure on the official portal yourself.</p>
+</section>
+
+<!-- STRUCTURE -->
+<section id="dhaancha" role="tabpanel" hidden>
+  <h2>How government is organised, from Murachh to Bhopal</h2>
+  <p class="sub">Village affairs run along two lines. Development work and welfare schemes come through the Panchayati Raj line. Land, certificates and law and order come through the Revenue line.</p>
+  <div class="note"><b>First step:</b> check whether Murachh is its own Gram Panchayat or part of a neighbouring one. Search the village on <a href="https://lgdirectory.gov.in" target="_blank" rel="noopener">lgdirectory.gov.in</a>. You will need that Gram Panchayat's name on every portal below.</div>
+  <div class="tracks">
+    <div class="track"><div class="label">Development · Panchayati Raj</div>
+      <ol>
+        <li class="here"><b>Gram Sabha + Gram Panchayat</b><span>Sarpanch, ward members, Secretary, Employment Assistant</span></li>
+        <li><b>Janpad Panchayat Pawai</b><span>Janpad CEO, Janpad President, Sub-engineer</span></li>
+        <li><b>Zila Panchayat Panna</b><span>Zila Panchayat CEO, Zila President</span></li>
+        <li><b>Panchayat &amp; Rural Development Dept, MP</b><span>Bhopal: state schemes and fund releases</span></li>
+        <li><b>Government of India</b><span>Ministry of Panchayati Raj, Ministry of Rural Development</span></li>
+      </ol></div>
+    <div class="track"><div class="label">Revenue · Land &amp; law</div>
+      <ol>
+        <li class="here"><b>Patwari circle</b><span>Khasra, B-1, village map</span></li>
+        <li><b>Revenue Inspector (RI)</b><span>Boundary marking, inquiries</span></li>
+        <li><b>Tehsildar, Pawai</b><span>Mutation, partition, certificates</span></li>
+        <li><b>SDM, Pawai</b><span>Appeals, sub-division administration</span></li>
+        <li><b>Collector, Panna</b><span>Head of the district; District Programme Coordinator for MGNREGA</span></li>
+      </ol></div>
+  </div>
+</section>
+
+<!-- OFFICERS -->
+<section id="adhikari" role="tabpanel" hidden>
+  <h2>Officials and their roles</h2>
+  <p class="sub">What each post does and what you can ask of it. <span class="pill el">elected</span> posts are chosen by voters. <span class="pill gov">appointed</span> posts are government staff who get transferred.</p>
+  <div class="note warn">Who holds each post changes often. Current names and phone numbers are on the "Who's Who" and "Directory" pages of <a href="https://panna.nic.in" target="_blank" rel="noopener">panna.nic.in</a>. According to the October 2025 transfer list, the Collector of Panna is Smt. Usha Parmar. This may have changed since, so please verify.</div>
+  <div class="tbl"><table>
+    <thead><tr><th>Level</th><th>Post</th><th>What they do</th><th>What you can ask for</th></tr></thead>
+    <tbody>
+      <tr><td class="lvl">Village</td><td><b>Gram Sabha</b><br><span class="pill el">all voters</span></td><td>Approves the annual development plan (GPDP), selects beneficiaries, conducts social audits</td><td>Accounts of every work, meeting minutes, beneficiary lists read out aloud</td></tr>
+      <tr><td class="lvl">Village</td><td><b>Sarpanch</b><br><span class="pill el">elected</span></td><td>Head of the Gram Panchayat. Proposes works and co-signs payments digitally with the Secretary</td><td>Which work cost how much, and which contractor or vendor was paid</td></tr>
+      <tr><td class="lvl">Village</td><td><b>Panch (ward member)</b><br><span class="pill el">elected</span></td><td>Represents a ward and votes in Panchayat meetings</td><td>Details of works in your ward; raising questions in meetings</td></tr>
+      <tr><td class="lvl">Village</td><td><b>Panchayat Secretary</b><br><span class="pill gov">appointed</span></td><td>Keeps the cash book and registers, enters data on eGramSwaraj, handles bills and vouchers. Public Information Officer for RTI</td><td>Certified copies of the cash book, vouchers and resolutions register (through RTI)</td></tr>
+      <tr><td class="lvl">Village</td><td><b>Gram Rozgar Sahayak</b><br><span class="pill gov">contract</span></td><td>MGNREGA job cards, work demand, muster rolls, wage entries</td><td>Job card, dated receipt for work demanded, muster rolls</td></tr>
+      <tr><td class="lvl">Village</td><td><b>Patwari</b><br><span class="pill gov">appointed</span></td><td>Land records, crop surveys, crop-loss assessments</td><td>Copies of Khasra/B-1, PM-Kisan verification</td></tr>
+      <tr><td class="lvl">Village</td><td><b>Anganwadi / ASHA / ANM</b><br><span class="pill gov">appointed</span></td><td>Nutrition supply, vaccinations, care of pregnant women</td><td>Stock register, beneficiary list</td></tr>
+      <tr><td class="lvl">Block</td><td><b>Sub-engineer (RES / Janpad)</b><br><span class="pill gov">appointed</span></td><td>Prepares estimates, records the Measurement Book (MB), values completed work</td><td>Copies of the estimate and MB. These show how much work was actually done</td></tr>
+      <tr><td class="lvl">Block</td><td><b>CEO, Janpad Panchayat Pawai</b><br><span class="pill gov">appointed</span></td><td>Supervises all Gram Panchayats in the block; MGNREGA Programme Officer; can act against Secretaries</td><td>Inquiry into complaints, Panchayat audits, site inspections</td></tr>
+      <tr><td class="lvl">Tehsil</td><td><b>Tehsildar, Pawai</b><br><span class="pill gov">appointed</span></td><td>Mutation, partition, income/caste/domicile certificates</td><td>Status of pending revenue cases</td></tr>
+      <tr><td class="lvl">Tehsil</td><td><b>SDM, Pawai</b><br><span class="pill gov">appointed</span></td><td>Sub-division administration, revenue appeals, law and order</td><td>Appeals against tehsil-level decisions</td></tr>
+      <tr><td class="lvl">Block</td><td><b>CDPO (ICDS) / BMO / BRC</b><br><span class="pill gov">appointed</span></td><td>Block-level oversight of Anganwadis, health centres and schools</td><td>Complaints about Anganwadi, school or health services</td></tr>
+      <tr><td class="lvl">District</td><td><b>CEO, Zila Panchayat Panna</b><br><span class="pill gov">IAS</span></td><td>Development across all Janpads and Panchayats; monitors PMAY-G, SBM and MGNREGA</td><td>Escalation when the Janpad does not act</td></tr>
+      <tr><td class="lvl">District</td><td><b>Collector, Panna</b><br><span class="pill gov">IAS</span></td><td>Top district official; holds Jan Sunwai; reviews all schemes</td><td>Direct complaint at the Tuesday Jan Sunwai</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- MONEY -->
+<section id="paisa" role="tabpanel" hidden>
+  <h2>Where the money comes from, and where it's accounted for</h2>
+  <p class="sub">All of these are public portals and need no login. On each one, choose in this order: <b>Madhya Pradesh → Panna → Pawai → your Gram Panchayat → year</b>.</p>
+  <div class="cards">
+    <div class="card"><div class="label">Panchayat accounts</div><h3>eGramSwaraj</h3>
+      <p class="what">15th Finance Commission grants, the GPDP plan, spending on every work, vouchers.</p>
+      <ol><li>Reports → Planning → Approved Action Plan</li><li>Reports → Financial Progress / Expenditure</li><li>Reports → Physical Progress (photos, geo-tags)</li></ol>
+      <a class="url" href="https://egramswaraj.gov.in" target="_blank" rel="noopener">egramswaraj.gov.in</a></div>
+    <div class="card"><div class="label">Rural employment</div><h3>MGNREGA (NREGASoft)</h3>
+      <p class="what">Job cards, who worked how many days, wage payments, list of works.</p>
+      <ol><li>Reports → Gram Panchayat → Generate Reports</li><li>R1: Job card register, muster rolls</li><li>Work status, asset geo-tags (GIS), social audit findings</li></ol>
+      <a class="url" href="https://nrega.nic.in" target="_blank" rel="noopener">nrega.nic.in</a></div>
+    <div class="card"><div class="label">Rural housing</div><h3>PMAY-G (AwaasSoft)</h3>
+      <p class="what">Who got a house, how many instalments were paid, whether it was built (with photos).</p>
+      <ol><li>AwaasSoft → Reports</li><li>Social Audit Reports → Beneficiary details for verification</li></ol>
+      <a class="url" href="https://pmayg.nic.in" target="_blank" rel="noopener">pmayg.nic.in</a></div>
+    <div class="card"><div class="label">Sanitation</div><h3>Swachh Bharat Mission (Gramin)</h3>
+      <p class="what">Toilet grants received in the village, beneficiary names, ODF Plus status.</p>
+      <a class="url" href="https://sbm.gov.in" target="_blank" rel="noopener">sbm.gov.in</a></div>
+    <div class="card"><div class="label">Tap water</div><h3>Jal Jeevan Mission</h3>
+      <p class="what">How many households are recorded as having a tap connection. Compare with reality on the ground.</p>
+      <a class="url" href="https://ejalshakti.gov.in" target="_blank" rel="noopener">ejalshakti.gov.in</a></div>
+    <div class="card"><div class="label">Farmers</div><h3>PM-Kisan</h3>
+      <p class="what">Village-wise beneficiary list. Deceased people or non-farmers on the list are a red flag.</p>
+      <a class="url" href="https://pmkisan.gov.in" target="_blank" rel="noopener">pmkisan.gov.in</a></div>
+    <div class="card"><div class="label">MP · Family &amp; pensions</div><h3>Samagra Portal</h3>
+      <p class="what">Samagra ID, social security pensions, family eligibility.</p>
+      <a class="url" href="https://samagra.gov.in" target="_blank" rel="noopener">samagra.gov.in</a></div>
+    <div class="card"><div class="label">MP · Land</div><h3>MP Bhulekh</h3>
+      <p class="what">Khasra, B-1, maps. Use it to check encroachment on government or grazing land.</p>
+      <a class="url" href="https://mpbhulekh.gov.in" target="_blank" rel="noopener">mpbhulekh.gov.in</a></div>
+    <div class="card"><div class="label">District</div><h3>Panna district website</h3>
+      <p class="what">Officer directory, tender notices, transfer orders, scheme notices.</p>
+      <a class="url" href="https://panna.nic.in" target="_blank" rel="noopener">panna.nic.in</a></div>
+  </div>
+  <p class="note" style="margin-top:20px">On mobile, the <b>Meri Panchayat</b> app (Ministry of Panchayati Raj) also shows Panchayat funds, works and officials. Install only the version from the official publisher on the Play Store.</p>
+</section>
+
+<!-- RED FLAGS -->
+<section id="flags" role="tabpanel" hidden>
+  <h2>Red flag checklist</h2>
+  <p class="sub">Compare portal data with what you see on the ground, and tick anything that doesn't match. A red flag is not proof of corruption on its own, but it tells you where to file an RTI or a complaint. Your ticks are saved only in this browser.</p>
+  <div class="note red">Do not publicly accuse a named person (on WhatsApp, Facebook, etc.). Collect documents first (RTI replies, portal screenshots, photos) and complain to the right authority. Accusations without evidence can lead to a defamation case against you.</div>
+  <div class="flags" id="flaglist"></div>
+  <div class="tally"><span>Red flags found: <b id="tcount">0</b> <span id="thi"></span></span><button class="btn ghost" id="toRti">Draft an RTI on these →</button></div>
+</section>
+
+<!-- RTI -->
+<section id="rti" role="tabpanel" hidden>
+  <h2>RTI application drafter</h2>
+  <p class="sub">Fill in the form and a complete application appears below. Copy it onto plain paper, or file it online at <a href="https://rtionline.mp.gov.in" target="_blank" rel="noopener">rtionline.mp.gov.in</a>.</p>
+  <form class="form" id="rtiform">
+    <div class="field"><label for="r_name">Your name</label><input type="text" id="r_name" value="Ramesh Kumar"></div>
+    <div class="field"><label for="r_father">Father's / husband's name</label><input type="text" id="r_father" value="Shri Mohan Lal"></div>
+    <div class="field full"><label for="r_addr">Address</label><input type="text" id="r_addr" value="Village Murachh, Tehsil Pawai, District Panna (M.P.) 488446"></div>
+    <div class="field"><label for="r_office">Send to</label>
+      <select id="r_office">
+        <option value="gp">Gram Panchayat (Secretary)</option>
+        <option value="janpad">Janpad Panchayat Pawai</option>
+        <option value="tehsil">Tehsil Office, Pawai</option>
+        <option value="zila">Zila Panchayat Panna</option>
+        <option value="coll">Collector's Office, Panna</option>
+      </select></div>
+    <div class="field"><label for="r_gp">Gram Panchayat name</label><input type="text" id="r_gp" value="Murachh"></div>
+    <div class="field"><label for="r_from">Period from</label><input type="text" id="r_from" value="01-04-2022"></div>
+    <div class="field"><label for="r_to">Period to</label><input type="text" id="r_to" value="31-03-2026"></div>
+    <fieldset class="field full"><legend>Information requested</legend>
+      <div class="checks" id="rtiitems"></div></fieldset>
+    <div class="field full"><label for="r_extra">Anything specific (optional)</label><textarea id="r_extra" rows="2" placeholder="For example: estimate and Measurement Book for the CC road in Ward 4"></textarea></div>
+    <div class="field full"><label style="display:flex;gap:8px;align-items:center;font-weight:400"><input type="checkbox" id="r_bpl" style="accent-color:var(--accent)"> I hold a BPL card (fee waived; attach a copy of the card)</label></div>
+  </form>
+  <div class="out" id="rtiout"></div>
+  <div class="row"><button class="btn" id="copyrti">Copy application</button><span class="toast" id="copystat" aria-live="polite"></span></div>
+  <div class="note" style="margin-top:20px"><b>Key points:</b> The fee in MP is ₹10 (waived for BPL applicants). Photocopies cost ₹2 per page. Always get a receipt. A reply is due within 30 days. If you get no reply or an incomplete one, file a first appeal with the First Appellate Authority within 30 days, then a second appeal with the MP State Information Commission.</div>
+</section>
+
+<!-- COMPLAINT -->
+<section id="shikayat" role="tabpanel" hidden>
+  <h2>Where to complain, and in what order</h2>
+  <p class="sub">This order usually gets the fastest result. Complain in writing at every step and keep the receipt or complaint number.</p>
+  <ol class="ladder">
+    <li><div><h3>Written question at the Gram Sabha</h3><p>Submit your question in writing and have it recorded in the minutes. This becomes evidence for later steps.</p></div></li>
+    <li><div><h3>CEO, Janpad Panchayat Pawai</h3><p>For complaints about Panchayat works, MGNREGA or the Secretary. Get a receipt stamped on your copy.</p></div></li>
+    <li><div><h3>CM Helpline 181</h3><p>Call 181 or file online. Complaints escalate automatically from L1 to L4 officials. Don't let it be closed unless you're satisfied.</p><span class="url"><a href="https://cmhelpline.mp.gov.in" target="_blank" rel="noopener">cmhelpline.mp.gov.in</a></span></div></li>
+    <li><div><h3>Jan Sunwai, every Tuesday</h3><p>Held at the Collector's office in Panna and at Janpad level. Present your documents directly to the officials.</p></div></li>
+    <li><div><h3>MGNREGA Ombudsman (Lokpal)</h3><p>Every district has an Ombudsman for MGNREGA complaints. The name and address are on the district page at nrega.nic.in.</p></div></li>
+    <li><div><h3>Asked for a bribe? Lokayukta police</h3><p>Panna falls under the Sagar division. The Lokayukta can set up a trap when someone demands a bribe. Contact them before paying anything.</p><span class="url"><a href="https://mplokayukta.nic.in" target="_blank" rel="noopener">mplokayukta.nic.in</a></span></div></li>
+    <li><div><h3>Large-scale fraud: EOW</h3><p>For misuse of lakhs in funds, fake bills, or organised fake-beneficiary scams.</p><span class="url"><a href="https://eow.mp.gov.in" target="_blank" rel="noopener">eow.mp.gov.in</a></span></div></li>
+    <li><div><h3>Central government: CPGRAMS</h3><p>Complaints about central schemes (PMAY-G, MGNREGA, JJM) go directly to the ministry.</p><span class="url"><a href="https://pgportal.gov.in" target="_blank" rel="noopener">pgportal.gov.in</a></span></div></li>
+  </ol>
+</section>
+
+</main>
+<footer><div class="wrap">This guide only points to official public sources and is not legal advice. Officials' names and scheme rules change over time, so verify everything on the official portal.</div></footer>
+
+<script>
+(function(){
+  const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+  // Standalone (GitHub Pages) build has no Claude runtime: drop the Ask tab
+  const STANDALONE=false;
+  if(STANDALONE){document.querySelector('[data-t="poocho"]').remove();document.getElementById('poocho').remove()}
+
+  // Tabs
+  const tabs=[...document.querySelectorAll('nav.tabs button')];
+  function show(id){
+    tabs.forEach(b=>b.setAttribute('aria-selected',b.dataset.t===id));
+    document.querySelectorAll('main section').forEach(s=>s.hidden=s.id!==id);
+    store.set('tab',id);
+  }
+  tabs.forEach(b=>b.addEventListener('click',()=>{show(b.dataset.t);window.scrollTo({top:0})}));
+  const start=(location.hash||'').slice(1);
+  const saved=store.get('tab','data');
+  show(document.getElementById(start)?start:(document.getElementById(saved)?saved:'data'));
+
+  // Red flags
+  const FLAGS=[
+    {g:'MGNREGA',items:[
+      ['hi','Muster rolls list people who were not in the village at the time (migrant workers, or deceased)','nrega.nic.in → R1 → Muster Roll. Check the names with villagers.'],
+      ['hi','Work shown as "complete" but not done, or only half done, on the ground','Check work status and the GIS geo-tag photo, then visit the site yourself.'],
+      ['md','The same work sanctioned twice under different names','Look for similar names and locations in the year-wise works list.'],
+      ['md','Wages paid more than 15 days late, or not at all','Compare the payment / FTO report with workers\' passbooks.'],
+      ['md','Work done by machine (JCB) but labourers shown in the muster roll','Ask villagers; keep photo or video evidence.'],
+    ]},
+    {g:'Panchayat funds (15th FC / eGramSwaraj)',items:[
+      ['hi','Bill or voucher amount far too large for the work (e.g. ₹10 lakh for a 100 m drain)','eGramSwaraj → Financial Progress. Request the estimate and MB under RTI.'],
+      ['md','Repeated payments to the same vendor without tender or quotations','Check vendor names in the eGramSwaraj voucher list.'],
+      ['md','Payment made for a work that was not in the plan (GPDP)','Compare the Approved Action Plan with the expenditure list.'],
+      ['md','Gram Sabha never held, but minutes recorded anyway','Request the Gram Sabha attendance register under RTI.'],
+    ]},
+    {g:'PMAY-G Housing',items:[
+      ['hi','Houses given to families who already have pucca homes, or several to one family','Check the AwaasSoft beneficiary list against the village.'],
+      ['hi','A cut demanded in exchange for releasing an instalment','Go straight to the Lokayukta police, before paying anything.'],
+      ['md','House shown "complete" but not built, or the photo is of another house','Check the AwaasSoft geo-tagged photos.'],
+    ]},
+    {g:'Other schemes',items:[
+      ['md','Toilet grant withdrawn but no toilet built, or it is unusable','Compare with the sbm.gov.in beneficiary list.'],
+      ['md','Tap connection recorded on the portal, but no water at home','Check the village report on ejalshakti.gov.in.'],
+      ['md','Less grain given at the ration shop, or more written on the slip','Photograph the slip; complain to the Food Inspector or CM Helpline.'],
+      ['md','Anganwadi nutrition recorded in the register but not distributed','Complain to the CDPO Pawai; request the stock register under RTI.'],
+    ]},
+  ];
+  const ticked=new Set(store.get('flags',[]));
+  const fl=document.getElementById('flaglist');
+  FLAGS.forEach((grp,gi)=>{
+    const d=document.createElement('div');
+    const h=document.createElement('h3');h.textContent=grp.g;d.appendChild(h);
+    grp.items.forEach((it,ii)=>{
+      const id='f'+gi+'_'+ii;
+      const lab=document.createElement('label');lab.className='flag '+it[0];
+      lab.innerHTML='<input type="checkbox" id="'+id+'"><span></span><span class="how"></span>';
+      lab.querySelector('span').textContent=it[1];
+      lab.querySelector('.how').textContent=(it[0]==='hi'?'Serious · ':'Watch · ')+it[2];
+      const cb=lab.querySelector('input');cb.checked=ticked.has(id);lab.classList.toggle('on',cb.checked);
+      cb.addEventListener('change',()=>{cb.checked?ticked.add(id):ticked.delete(id);lab.classList.toggle('on',cb.checked);store.set('flags',[...ticked]);tally()});
+      d.appendChild(lab);
+    });
+    fl.appendChild(d);
+  });
+  function tally(){
+    document.getElementById('tcount').textContent=ticked.size;
+    const hi=[...ticked].filter(id=>{const[g,i]=id.slice(1).split('_');return FLAGS[g]&&FLAGS[g].items[i]&&FLAGS[g].items[i][0]==='hi'}).length;
+    document.getElementById('thi').textContent=hi?'('+hi+' serious)':'';
+  }
+  tally();
+  document.getElementById('toRti').addEventListener('click',()=>{show('rti');window.scrollTo({top:0})});
+
+  // RTI
+  const ITEMS=[
+    ['mg','List of all MGNREGA works with sanctioned amount, expenditure and current status'],
+    ['mr','Certified copies of muster rolls for those works'],
+    ['mb','Certified copies of estimates, Measurement Books (MB) and valuations of works'],
+    ['fc','Year-wise funds received under the 15th Finance Commission and other heads, and their use'],
+    ['cb','Certified copies of the Gram Panchayat cash book and payment vouchers / bills'],
+    ['vd','Names of vendors / contractors / suppliers paid, with amounts'],
+    ['gp','Gram Panchayat Development Plan (GPDP), Gram Sabha resolutions and attendance register'],
+    ['aw','PMAY-G beneficiary list, basis of selection and instalment payments'],
+    ['sb','Swachh Bharat Mission toilet beneficiary list and payment details'],
+    ['sa','Social audit reports and action taken on them, including recoveries'],
+  ];
+  const FULL={
+    mg:'A list of all works sanctioned under the Mahatma Gandhi National Rural Employment Guarantee Scheme (MGNREGA), with the sanctioned amount, expenditure incurred and current status of each work.',
+    mr:'Certified copies of the muster rolls for the above works.',
+    mb:'Certified copies of the estimates, Measurement Books and valuation reports for the above works.',
+    fc:'Year-wise details of funds received under the 15th Finance Commission and all other heads, and the expenditure made from them.',
+    cb:'Certified copies of the Gram Panchayat cash book and all payment vouchers / bills.',
+    vd:'Names of all vendors / contractors / suppliers to whom payments were made, with the amount paid to each.',
+    gp:'Certified copies of the Gram Panchayat Development Plan (GPDP) and of Gram Sabha resolutions and attendance registers.',
+    aw:'The list of beneficiaries under Pradhan Mantri Awaas Yojana (Gramin), the basis of their selection, and details of instalments paid.',
+    sb:'The list of toilet beneficiaries under Swachh Bharat Mission (Gramin) and details of payments made.',
+    sa:'Copies of social audit reports and details of action taken on them, including recoveries made.',
+  };
+  const OFF={
+    gp:g=>'The Public Information Officer\nOffice of the Gram Panchayat '+g+'\nJanpad Panchayat Pawai, District Panna (M.P.)',
+    janpad:()=>'The Public Information Officer\nOffice of the Janpad Panchayat Pawai\nDistrict Panna (M.P.)',
+    tehsil:()=>'The Public Information Officer\nOffice of the Tehsildar, Tehsil Pawai\nDistrict Panna (M.P.)',
+    zila:()=>'The Public Information Officer\nOffice of the Zila Panchayat Panna\nDistrict Panna (M.P.)',
+    coll:()=>'The Public Information Officer\nOffice of the Collector, District Panna (M.P.)',
+  };
+  const box=document.getElementById('rtiitems');
+  const defaults=new Set(store.get('rtiitems',['mg','mb','fc','vd']));
+  ITEMS.forEach(([k,t])=>{
+    const l=document.createElement('label');
+    l.innerHTML='<input type="checkbox" id="ri_'+k+'"><span></span>';
+    l.querySelector('span').textContent=t;
+    l.querySelector('input').checked=defaults.has(k);
+    box.appendChild(l);
+  });
+  const $=id=>document.getElementById(id);
+  function build(){
+    const g=$('r_gp').value.trim()||'________';
+    const sel=ITEMS.filter(([k])=>$('ri_'+k).checked).map(([k])=>k);
+    store.set('rtiitems',sel);
+    const lines=sel.map(k=>FULL[k]);
+    const ex=$('r_extra').value.trim(); if(ex) lines.push(ex);
+    const scope=$('r_office').value==='gp'?'Gram Panchayat '+g:'Gram Panchayat '+g+' (Janpad Panchayat Pawai)';
+    const bpl=$('r_bpl').checked;
+    const today=new Date().toLocaleDateString('en-GB').replace(/\//g,'-');
+    $('rtiout').textContent=
+'To,\n'+OFF[$('r_office').value](g)+'\n\n'+
+'Subject: Application for information under Section 6(1) of the Right to Information Act, 2005\n\n'+
+'Sir / Madam,\n'+
+'Please provide the following information relating to '+scope+' for the period from '+($('r_from').value||'____')+' to '+($('r_to').value||'____')+':\n\n'+
+(lines.length?lines.map((l,i)=>(i+1)+'. '+l).join('\n'):'1. ____________________')+'\n\n'+
+'Please inform me in writing of any additional fee payable for certified copies. If any part of this information is held by another public authority, kindly transfer the application under Section 6(3) within 5 days.\n\n'+
+(bpl?'The applicant belongs to the Below Poverty Line (BPL) category and is exempt from the application fee. A copy of the BPL card is attached.\n\n':'The application fee of ₹10 is enclosed (cash / postal order / challan no. ________).\n\n')+
+'Applicant\n'+
+'Name: '+($('r_name').value||'________')+'\n'+
+'Father\'s / Husband\'s name: '+($('r_father').value||'________')+'\n'+
+'Address: '+($('r_addr').value||'________')+'\n'+
+'Date: '+today+'\n'+
+'Signature: ________';
+  }
+  $('rtiform').addEventListener('input',build);
+  $('rtiform').addEventListener('submit',e=>e.preventDefault());
+  build();
+  $('copyrti').addEventListener('click',()=>{
+    const t=$('rtiout').textContent, st=$('copystat');
+    const fallback=()=>{const r=document.createRange();r.selectNodeContents($('rtiout'));const s=getSelection();s.removeAllRanges();s.addRange(r);st.textContent='Text selected. Press Ctrl/Cmd+C to copy.'};
+    try{navigator.clipboard.writeText(t).then(()=>{st.textContent='Copied.'},fallback)}catch(e){fallback()}
+  });
+
+  // Murachh data dashboard
+  let DATA_SUMMARY='';
+  const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const L=v=>(Math.round(v*100)/100).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
+  const rupee=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+  const wageOf=w=>w.exp_unskilled+w.exp_semiskilled+w.exp_skilled;
+  const norm=s=>s.toLowerCase().replace(/[^a-z0-9ऀ-ॿ]+/g,'');
+  fetch('data/murachh.json').then(r=>{if(!r.ok)throw 0;return r.json()}).then(D=>renderData(D)).catch(()=>{$('dmeta').textContent='';$('derr').hidden=false});
+
+  function renderData(D){
+    const W=D.works, B=D.bills||[], WM=D.wage_material_current, JC=D.jobcards||{};
+    const when=new Date(D.meta.fetched_at);
+    $('dmeta').textContent='MGNREGA records for Gram Panchayat Murachh, fetched from the government\'s NREGASoft portal on '+when.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})+'.';
+    $('dbody').hidden=false;
+
+    // per-work flags
+    const nameCount={};W.forEach(w=>{const k=norm(w.name);nameCount[k]=(nameCount[k]||0)+1});
+    W.forEach(w=>{
+      w.wage=wageOf(w); w.flags=[];
+      w.over=w.est_total>0?w.exp_total/w.est_total:0;
+      if(w.est_total>0&&w.over>1.2) w.flags.push(['crit','Spent '+Math.round((w.over-1)*100)+'% over estimate']);
+      if(w.status==='Suspended'&&w.exp_total>0) w.flags.push(['crit','Suspended after spending']);
+      if(w.exp_material>0&&w.mandays===0) w.flags.push(['warn','Material bought, no labour days']);
+      if(w.status==='physical complete'&&w.exp_total>0) w.flags.push(['warn','Not financially closed']);
+      if(nameCount[norm(w.name)]>1) w.flags.push(['warn','Same name as another work']);
+    });
+
+    // totals by year
+    const fy={};W.forEach(w=>{const f=fy[w.fy]||(fy[w.fy]={t:0,wage:0,n:0});f.t+=w.exp_total;f.wage+=w.wage;f.n++});
+    const years=Object.keys(fy).sort();
+    const total=W.reduce((a,w)=>a+w.exp_total,0);
+    const vend={};B.forEach(b=>{vend[b.vendor]=(vend[b.vendor]||0)+1});
+    const topV=Object.entries(vend).sort((a,b)=>b[1]-a[1])[0]||['',0];
+    const billSum=B.reduce((a,b)=>a+(b.amount||0),0);
+    const wmPct=WM&&WM.total_lakh?Math.round(100*WM.wage_lakh/WM.total_lakh):null;
+
+    // tiles
+    const tile=(v,k,chip)=>'<div class="tile"><div class="v">'+v+'</div><div class="k">'+k+'</div>'+(chip||'')+'</div>';
+    $('tiles').innerHTML=
+      tile('₹'+L(total/100)+' cr','MGNREGA spending recorded on '+W.length+' works since '+years[0].slice(0,4))+
+      tile((JC.registered_people||0).toLocaleString('en-IN'),'people on '+(JC.households||0).toLocaleString('en-IN')+' job cards')+
+      (WM?tile('₹'+L(WM.total_lakh)+' lakh','spent so far in '+WM.fy+', '+wmPct+'% on wages',
+        wmPct<60?'<span class="stat crit">▲ Below 60% wage rule</span>':'<span class="stat ok">✓ Meets 60% wage rule</span>'):'')+
+      tile(rupee(billSum),B.length+' material bills; '+topV[1]+' of them to one vendor',
+        B.length&&topV[1]/B.length>0.6?'<span class="stat warn">● One vendor dominates</span>':'');
+
+    // chart
+    const cw=900,ch=260,pl=44,pr=8,pt=14,pb=44,iw=cw-pl-pr,ih=ch-pt-pb;
+    const max=Math.max(...years.map(y=>fy[y].t));const step=max>60?20:max>30?10:5;const top=Math.ceil(max/step)*step;
+    const bw=iw/years.length, barW=Math.max(6,Math.min(28,bw-8));
+    let svg='<svg viewBox="0 0 '+cw+' '+ch+'" role="img" aria-label="MGNREGA spending by year in lakh rupees">';
+    for(let v=0;v<=top;v+=step){const y=pt+ih-ih*v/top;svg+='<line class="grid" x1="'+pl+'" x2="'+(cw-pr)+'" y1="'+y+'" y2="'+y+'"/><text x="'+(pl-6)+'" y="'+(y+3.5)+'" text-anchor="end">'+v+'</text>'}
+    years.forEach((y,i)=>{
+      const f=fy[y],h=Math.max(1,ih*f.t/top),x=pl+i*bw+(bw-barW)/2,yy=pt+ih-h,low=f.t>0&&f.wage/f.t<0.6;
+      const r=Math.min(4,barW/2,h);
+      svg+='<path class="bar" data-i="'+i+'" d="M'+x+','+(pt+ih)+'V'+(yy+r)+'Q'+x+','+yy+' '+(x+r)+','+yy+'H'+(x+barW-r)+'Q'+(x+barW)+','+yy+' '+(x+barW)+','+(yy+r)+'V'+(pt+ih)+'Z"/>';
+      svg+='<text x="'+(x+barW/2)+'" y="'+(ch-pb+14)+'" text-anchor="middle">'+y.slice(2,4)+'-'+y.slice(7,9)+'</text>';
+      if(low) svg+='<text x="'+(x+barW/2)+'" y="'+(ch-pb+28)+'" text-anchor="middle" style="fill:var(--red)">▲</text>';
+      svg+='<rect class="hit" data-i="'+i+'" x="'+(pl+i*bw)+'" y="'+pt+'" width="'+bw+'" height="'+ih+'" fill="transparent"/>';
+    });
+    svg+='</svg><div class="tip" id="ctip" hidden></div>';
+    $('chart').innerHTML=svg;
+    const tip=$('ctip');
+    $('chart').querySelectorAll('.hit').forEach(h=>{
+      const i=+h.dataset.i,y=years[i],f=fy[y],bar=$('chart').querySelector('.bar[data-i="'+i+'"]');
+      h.addEventListener('mouseenter',()=>{
+        bar.classList.add('on');
+        const wp=f.t?Math.round(100*f.wage/f.t):0;
+        tip.innerHTML='<b>'+y+'</b><br>₹'+L(f.t)+' lakh on '+f.n+' works<br>Wages '+wp+'%'+(wp<60&&f.t?' · below 60% rule':'');
+        const bb=bar.getBBox(),sv=$('chart').querySelector('svg'),k=sv.clientWidth/cw;
+        tip.style.left=((bb.x+bb.width/2)*k-$('chart').scrollLeft)+'px';tip.style.top=(bb.y*k-6)+'px';tip.hidden=false;
+      });
+      h.addEventListener('mouseleave',()=>{bar.classList.remove('on');tip.hidden=true});
+    });
+
+    // automatic flags
+    const over=W.filter(w=>w.est_total>0&&w.over>1.2).sort((a,b)=>b.over-a.over);
+    const susp=W.filter(w=>w.status==='Suspended'&&w.exp_total>0);
+    const nolab=W.filter(w=>w.exp_material>0&&w.mandays===0);
+    const open=W.filter(w=>w.status==='physical complete'&&w.exp_total>0);
+    const lowYears=years.filter(y=>fy[y].t>0&&fy[y].wage/fy[y].t<0.6);
+    const dupes=Object.values(W.reduce((a,w)=>{const k=norm(w.name);(a[k]=a[k]||[]).push(w);return a},{})).filter(g=>g.length>1);
+    const li=(w,extra)=>'<li>'+esc(w.name)+' <small>('+esc(w.code)+', '+w.fy+')</small>'+(extra?' · '+extra:'')+'</li>';
+    const AF=[];
+    if(WM&&wmPct<60) AF.push(['crit',wmPct+'%','Only '+wmPct+'% of this year\'s spending ('+WM.fy+') went to wages','₹'+L(WM.wage_lakh)+' lakh on wages vs ₹'+L(WM.material_lakh)+' lakh on material. The rule is at least 60% on wages at Gram Panchayat level. Ask for the material bills and measurement books under RTI.','']);
+    if(lowYears.length) AF.push(['warn',lowYears.length,'Sanction years where wages were under 60% of spending',lowYears.map(y=>y+' ('+Math.round(100*fy[y].wage/fy[y].t)+'%)').join(', '),'']);
+    if(B.length&&topV[1]/B.length>0.6) AF.push(['warn',Math.round(100*topV[1]/B.length)+'%','Share of material bills going to one vendor',esc(topV[0])+' received '+topV[1]+' of '+B.length+' bills. Ask whether quotations or tenders were invited.','']);
+    if(over.length) AF.push(['crit',over.length,'Works that spent more than 20% above their estimate','Ask for the revised estimate and the Measurement Book for each.','<details><summary>Show the works</summary><ul>'+over.slice(0,40).map(w=>li(w,'₹'+L(w.est_total)+' → ₹'+L(w.exp_total)+' lakh')).join('')+'</ul></details>']);
+    if(susp.length) AF.push(['crit',susp.length,'Suspended works where money was already spent','₹'+L(susp.reduce((a,w)=>a+w.exp_total,0))+' lakh spent on works later suspended.','<details><summary>Show the works</summary><ul>'+susp.map(w=>li(w,'₹'+L(w.exp_total)+' lakh')).join('')+'</ul></details>']);
+    if(nolab.length) AF.push(['warn',nolab.length,'Works with material bought but zero labour days recorded','MGNREGA works need labour. Check whether these works exist on the ground.','<details><summary>Show the works</summary><ul>'+nolab.map(w=>li(w,'material ₹'+L(w.exp_material)+' lakh')).join('')+'</ul></details>']);
+    if(open.length) AF.push(['warn',open.length,'Works marked "physically complete" but not closed','₹'+L(open.reduce((a,w)=>a+w.exp_total,0))+' lakh spent. Payments can still be added to open works. Ask why they are not closed.','<details><summary>Show the works</summary><ul>'+open.map(w=>li(w,'₹'+L(w.exp_total)+' lakh')).join('')+'</ul></details>']);
+    if(dupes.length) AF.push(['warn',dupes.length,'Work names that appear more than once','Sometimes a genuine repeat (e.g. sanctioned in two years), sometimes a duplicate. Visit the site and check.','<details><summary>Show the works</summary><ul>'+dupes.map(g=>'<li>'+esc(g[0].name)+' <small>('+g.map(w=>w.fy+', '+w.status).join(' · ')+')</small></li>').join('')+'</ul></details>']);
+    $('aflags').innerHTML=AF.map(([c,n,t,p,x])=>'<div class="af '+c+'"><div class="n">'+n+'</div><div><b>'+t+'</b><p>'+p+'</p></div>'+x+'</div>').join('')+
+      '<div class="row"><button class="btn ghost" id="af2rti">Draft an RTI about these →</button></div>';
+    $('af2rti').addEventListener('click',()=>{['mg','mb','vd','sa'].forEach(k=>{const c=$('ri_'+k);if(c)c.checked=true});build();show('rti');window.scrollTo({top:0})});
+
+    // works table
+    [...new Set(W.map(w=>w.fy))].sort().reverse().forEach(y=>$('wfy').add(new Option(y,y)));
+    [...new Set(W.map(w=>w.status))].sort().forEach(s=>$('wst').add(new Option(s,s)));
+    let limit=50;
+    function rows(){
+      const q=$('wq').value.trim().toLowerCase(),f=$('wfy').value,st=$('wst').value,fl=$('wfl').value,so=$('wsort').value;
+      let list=W.filter(w=>(!q||w.name.toLowerCase().includes(q)||w.code.toLowerCase().includes(q))&&(!f||w.fy===f)&&(!st||w.status===st)&&(!fl||w.flags.length));
+      list.sort(so==='new'?(a,b)=>b.fy.localeCompare(a.fy)||b.exp_total-a.exp_total:so==='over'?(a,b)=>b.over-a.over:(a,b)=>b.exp_total-a.exp_total);
+      $('wcount').textContent='('+list.length+' of '+W.length+')';
+      $('wbody').innerHTML=list.slice(0,limit).map(w=>{
+        const wp=w.exp_total?Math.round(100*w.wage/w.exp_total)+'%':'–';
+        return '<tr><td>'+w.fy+'</td><td>'+esc(w.name)+'<small>'+esc(w.code)+'</small>'+(w.flags.length?'<div class="chips2">'+w.flags.map(([c,t])=>'<span class="stat '+c+'">'+(c==='crit'?'▲ ':'● ')+esc(t)+'</span>').join('')+'</div>':'')+'</td><td>'+esc(w.status)+'</td><td class="r">₹'+L(w.est_total)+' L</td><td class="r">₹'+L(w.exp_total)+' L</td><td class="r">'+wp+'</td><td class="r">'+w.mandays.toLocaleString('en-IN')+'</td></tr>';
+      }).join('')||'<tr><td colspan="7">No works match these filters.</td></tr>';
+      $('wmore').hidden=list.length<=limit;
+      $('wshown').textContent='Showing '+Math.min(limit,list.length)+' of '+list.length;
+    }
+    ['wq','wfy','wst','wfl','wsort'].forEach(id=>$(id).addEventListener('input',()=>{limit=50;rows()}));
+    $('wmore').addEventListener('click',()=>{limit+=100;rows()});
+    rows();
+
+    // bills
+    const pd=s=>{const m=/(\d+)\/(\d+)\/(\d+)/.exec(s||'');return m?+m[3]*1e4+ +m[2]*100+ +m[1]:0};
+    $('bcount').textContent='('+B.length+' bills, '+rupee(billSum)+')';
+    $('bbody').innerHTML=B.slice().sort((a,b)=>pd(b.bill_date)-pd(a.bill_date)).map(b=>{
+      const items=(b.items||[]).filter(i=>!/GST|TDS/i.test(i.material)).map(i=>esc(i.material)+(i.qty?' × '+i.qty:'')).join('; ');
+      return '<tr><td>'+esc(b.bill_date)+'</td><td>'+esc(b.vendor)+'</td><td>'+esc(b.work_name)+'<small>'+esc(b.work_code)+'</small></td><td>'+esc(b.bill_no)+'</td><td class="r">'+rupee(b.amount)+'</td><td>'+(items||'–')+'</td></tr>';
+    }).join('');
+
+    DATA_SUMMARY='Murachh GP MGNREGA data (NREGASoft, fetched '+D.meta.fetched_at.slice(0,10)+'): '+W.length+' works, total spending Rs '+L(total)+' lakh. '+
+      (WM?'Current year '+WM.fy+': Rs '+WM.total_lakh+' lakh spent, wages '+wmPct+'%. ':'')+
+      'Job cards: '+JC.registered_people+' people, '+JC.households+' households. Material bills: '+B.length+', Rs '+Math.round(billSum)+', top vendor '+topV[0]+' with '+topV[1]+' bills. '+
+      'Spending by sanction year (lakh, wage%): '+years.map(y=>y+' '+L(fy[y].t)+' ('+(fy[y].t?Math.round(100*fy[y].wage/fy[y].t):0)+'%)').join('; ')+'. '+
+      'Red flags: '+over.length+' works >20% over estimate; '+susp.length+' suspended with spending; '+nolab.length+' with material but no labour; '+open.length+' physically complete but open. '+
+      'Top 10 works by spending: '+W.slice().sort((a,b)=>b.exp_total-a.exp_total).slice(0,10).map(w=>w.name+' ('+w.fy+', Rs '+L(w.exp_total)+' lakh, '+w.status+')').join('; ')+'.';
+  }
+
+  // Ask Claude
+  if(STANDALONE) return;
+  const SYS='You are a civic information assistant helping a resident of Murachh village, Pawai Tehsil/Janpad, Panna District, Madhya Pradesh, India. Reply in the same language as the question (default English), plainly and in steps. Rules: (1) You have no live government data. Never invent any official\'s name, phone number, or scheme figures. Explain which official portal has it and how to find it (egramswaraj.gov.in, nrega.nic.in, pmayg.nic.in, sbm.gov.in, ejalshakti.gov.in, pmkisan.gov.in, samagra.gov.in, mpbhulekh.gov.in, panna.nic.in, lgdirectory.gov.in, cmhelpline.mp.gov.in, rtionline.mp.gov.in, mplokayukta.nic.in, eow.mp.gov.in, pgportal.gov.in). (2) Never call any person corrupt; explain red flags, how to gather evidence, and the right RTI and complaint channels. (3) RTI fee in MP is Rs 10, waived for BPL; reply due in 30 days. (4) Keep answers under 250 words, no markdown headings; numbered steps are fine.';
+  const ans=$('ans'),stat=$('askstat'),btn=$('askbtn'),q=$('q');
+  let ctrl=null, sample=null;
+  document.querySelectorAll('#chips .chip').forEach(c=>c.addEventListener('click',()=>{q.value=c.textContent;q.focus()}));
+  btn.addEventListener('click',async()=>{
+    const text=q.value.trim(); if(!text){q.focus();return}
+    if(!sample){stat.textContent='Connecting to Claude…';try{sample=await window.claude?.use?.('sample')}catch(e){sample=null}}
+    if(!sample){$('askbox').hidden=true;$('asknote').hidden=false;return}
+    if(ctrl) ctrl.abort(); ctrl=new AbortController();
+    btn.disabled=true; stat.textContent='Thinking…'; ans.textContent='';
+    try{
+      const r=await sample([{role:'user',content:SYS+(DATA_SUMMARY?'\n\nYou may cite this data, which the page loaded from official records (say it is from NREGASoft and give the fetch date):\n'+DATA_SUMMARY:'')+'\n\nQuestion: '+text}],{signal:ctrl.signal,cache:false,onText:({text})=>{ans.textContent=text;stat.textContent=''}});
+      ans.textContent=r.text; stat.textContent='';
+    }catch(e){
+      if(e&&e.code==='not_granted'){$('askbox').hidden=true;$('asknote').hidden=false}
+      else if(e&&e.code==='rate_limited'){stat.textContent='Too many questions right now. Please try again in a little while.'}
+      else if(e&&e.name!=='AbortError'){stat.textContent='Couldn\'t get an answer. Please try again.'; if(e.text) ans.textContent=e.text}
+    }finally{btn.disabled=false}
+  });
+})();
+</script>
