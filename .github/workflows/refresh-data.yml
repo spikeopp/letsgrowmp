@@ -1,8 +1,8 @@
 name: Refresh Murachh data
 
+# NREGASoft returns 401 to GitHub's (non-Indian) servers, so the weekly
+# refresh runs on a local Mac instead. Kept for manual runs from an Indian runner.
 on:
-  schedule:
-    - cron: "30 2 * * 1"   # every Monday, 08:00 IST
   workflow_dispatch:
 
 permissions:
