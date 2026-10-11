@@ -546,8 +546,9 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding-block:20
 
   function renderData(D){
     const W=D.works, B=D.bills||[], WM=D.wage_material_current, JC=D.jobcards||{}, S=D.sources||{};
+    const snap=h=>STANDALONE?h:'https://spikeopp.github.io/letsgrowmp/'+h;
     const pathOf=k=>S[k]?'NREGASoft: '+S[k].steps.join(' → '):'NREGASoft';
-    const src=(k,label,hint)=>{const x=S[k];if(!x)return '';const href=x.snapshot||x.official_entry;
+    const src=(k,label,hint)=>{const x=S[k];if(!x)return '';const href=x.snapshot?snap(x.snapshot):x.official_entry;
       return '<a class="src" href="'+esc(href)+'" target="_blank" rel="noopener" title="'+esc(pathOf(k)+(hint?'. '+hint:''))+'">'+(label||'Source')+' ↗</a>'};
     const when=new Date(D.meta.fetched_at);
     $('dmeta').innerHTML='MGNREGA records for Gram Panchayat Murachh, fetched from the government\'s <a href="'+esc((S.works||{}).official_entry||'https://nrega.dord.gov.in/stHome.aspx')+'" target="_blank" rel="noopener">NREGASoft portal</a> on '+when.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})+'. <a href="#sources" id="tosrc">How to verify</a>';
@@ -667,7 +668,7 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding-block:20
     const used={works:'All works, yearly totals, overrun and other work flags',bills:'Material bills and vendor share',wage_material:'This year\'s wage share',jobcards:'Job card counts'};
     $('srclist').innerHTML=Object.entries(S).map(([k,x])=>'<div class="srcitem"><b>'+esc(x.title)+'</b> <span class="muted">· used for: '+esc(used[k]||k)+'</span>'+
       '<ol>'+['Open <a href="'+esc(x.official_entry)+'" target="_blank" rel="noopener">nrega.dord.gov.in state reports</a>'].concat(x.steps.map(st=>'Click <b>'+esc(st)+'</b>')).map(t=>'<li>'+t+'</li>').join('')+'</ol>'+
-      '<div class="links">'+(x.snapshot?'<a href="'+esc(x.snapshot)+'" target="_blank" rel="noopener">Saved copy of the government page ↗</a>':'<span class="muted">No saved copy (lists workers by name)</span>')+'<span class="muted">Fetched '+fetched+'</span></div>'+
+      '<div class="links">'+(x.snapshot?'<a href="'+esc(snap(x.snapshot))+'" target="_blank" rel="noopener">Saved copy of the government page ↗</a>':'<span class="muted">No saved copy (lists workers by name)</span>')+'<span class="muted">Fetched '+fetched+'</span></div>'+
       '<div class="hash">SHA-256 '+esc(x.sha256)+'</div></div>').join('');
     $('tosrc').addEventListener('click',e=>{e.preventDefault();$('sources').scrollIntoView({behavior:'smooth'})});
 
