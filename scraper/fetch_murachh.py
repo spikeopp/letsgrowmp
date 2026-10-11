@@ -3,6 +3,7 @@
 Run from the repo root:  python3 scraper/fetch_murachh.py
 """
 import datetime
+import hashlib
 import json
 import os
 import re
@@ -13,6 +14,24 @@ from nrega import Session, biggest_table, find, open_panchayat  # noqa: E402
 
 DISTRICT, BLOCK, GP = "PANNA", "PAWAI", "MURACHH"
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "murachh.json")
+SRC_DIR = os.path.join(os.path.dirname(OUT), "sources")
+ENTRY = "https://nrega.dord.gov.in/stHome.aspx"
+PATH = ["MADHYA PRADESH", "PANNA", "PAWAI", "MURACHH"]
+SOURCES = {}
+
+
+def keep(key, title, steps, page, archive=True):
+    """Record where a dataset came from; optionally archive the raw page."""
+    src = {"title": title, "steps": PATH + steps, "official_entry": ENTRY,
+           "report_url_at_fetch": page.url,
+           "sha256": hashlib.sha256(page.raw.encode("utf-8")).hexdigest()}
+    if archive:
+        os.makedirs(SRC_DIR, exist_ok=True)
+        name = key + ".html"
+        with open(os.path.join(SRC_DIR, name), "w", encoding="utf-8") as f:
+            f.write(page.raw)
+        src["snapshot"] = "data/sources/" + name
+    SOURCES[key] = src
 
 
 def num(x):
@@ -30,6 +49,7 @@ def split_work(cell):
 def works(s, gp):
     page = s.get(find(gp, "Work Expenditure"))
     page = s.submit(page, {"ddfin": "ALL", "ddamt": "All", "workcat": "ALL", "workcattype": "ALL"})
+    keep("works", "Work Expenditure", ["R3. Work", "Work Expenditure", "Financial year: ALL", "View Report"], page)
     out = []
     for r in biggest_table(page):
         if len(r) < 21 or not r[0].isdigit():
@@ -47,6 +67,7 @@ def works(s, gp):
 
 def bills(s, gp):
     page = s.get(find(gp, "Material Procured Report"))
+    keep("bills", "Material Procured Report", ["R2. Demand, Allocation & Musteroll", "Material Procured Report"], page)
     seen, out, cur, section = set(), [], None, ""
     rows = [r for t in page.tables for r in t]
 
@@ -76,7 +97,9 @@ def bills(s, gp):
 
 
 def wage_material(s, gp):
-    t = biggest_table(s.get(find(gp, "Wage Material Ratio Analysis")))
+    page = s.get(find(gp, "Wage Material Ratio Analysis"))
+    keep("wage_material", "Wage Material Ratio Analysis", ["R4. Irregularities / Analysis", "Wage Material Ratio Analysis"], page)
+    t = biggest_table(page)
     fy = next((re.search(r"(\d{4}-\d{4})", r[0]).group(1) for r in t if r and re.search(r"\d{4}-\d{4}", r[0])), "")
     for r in t:
         if len(r) >= 5 and r[1].upper() == GP:
@@ -86,7 +109,10 @@ def wage_material(s, gp):
 
 
 def jobcards(s, gp):
-    t = biggest_table(s.get(find(gp, "Job card/Employment Register")))
+    page = s.get(find(gp, "Job card/Employment Register"))
+    # Not archived: the register lists every worker by name; we publish counts only.
+    keep("jobcards", "Job card/Employment Register", ["R1. Job Card/Registration", "Job card/Employment Register"], page, archive=False)
+    t = biggest_table(page)
     rows = [r for r in t if r and r[0].isdigit()]
     households = {re.sub(r"[-\s]*[A-Z]?\s*\*?$", "", r[1]).strip() for r in rows if len(r) > 1}
     return {"registered_people": len(rows), "households": len(households)}
@@ -107,6 +133,7 @@ def main():
         "wage_material_current": wage_material(s, gp),
         "jobcards": jobcards(s, gp),
     }
+    data["sources"] = SOURCES
     if len(data["works"]) < 50:
         sys.exit(f"Only {len(data['works'])} works parsed; refusing to overwrite data file.")
     os.makedirs(os.path.dirname(OUT), exist_ok=True)

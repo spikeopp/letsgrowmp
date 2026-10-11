@@ -83,6 +83,7 @@ class Session:
         p = Page()
         p.feed(html)
         p.url = final
+        p.raw = html
         return p
 
     def submit(self, page, overrides):

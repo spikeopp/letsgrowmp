@@ -136,6 +136,14 @@ table.data{min-width:760px}
 table.data td.r,table.data th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 table.data td small{display:block;color:var(--muted);font-family:var(--f-mono);font-size:11px}
 table.data .chips2{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px}
+a.src{font-size:12px;font-weight:500;white-space:nowrap;text-decoration:none;border-bottom:1px dotted var(--accent)}
+a.src:hover{border-bottom-style:solid}
+.tile a.src{margin-top:auto;padding-top:4px;width:fit-content}
+.srclist{display:flex;flex-direction:column;gap:12px}
+.srcitem{border:1px solid var(--line);border-radius:8px;padding:14px;background:var(--panel);min-width:0}
+.srcitem ol{margin:6px 0;padding-left:20px;font-size:14px}
+.srcitem .hash{font-family:var(--f-mono);font-size:11px;color:var(--muted);word-break:break-all}
+.srcitem .links{display:flex;gap:14px;flex-wrap:wrap;font-size:14px}
 footer{border-top:1px solid var(--line);background:var(--panel);padding-block:20px 32px;color:var(--muted);font-size:13.5px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -185,7 +193,7 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding-block:20
       <select id="wsort" aria-label="Sort"><option value="exp">Most spent first</option><option value="new">Newest first</option><option value="over">Biggest overrun first</option></select>
     </div>
     <div class="tbl"><table class="data">
-      <thead><tr><th>Year</th><th>Work</th><th>Status</th><th class="r">Estimate</th><th class="r">Spent</th><th class="r">Wage %</th><th class="r">Person-days</th></tr></thead>
+      <thead><tr><th>Year</th><th>Work</th><th>Status</th><th class="r">Estimate</th><th class="r">Spent</th><th class="r">Wage %</th><th class="r">Person-days</th><th>Source</th></tr></thead>
       <tbody id="wbody"></tbody>
     </table></div>
     <div class="row"><button class="btn ghost" id="wmore">Show more</button><span class="muted" id="wshown"></span></div>
@@ -193,10 +201,13 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding-block:20
     <h3 class="sect">Material bills paid to vendors <span class="muted" id="bcount"></span></h3>
     <p class="sub">From the "Material Procured" report, which lists bills for the current and previous financial year.</p>
     <div class="tbl"><table class="data">
-      <thead><tr><th>Bill date</th><th>Vendor</th><th>Work</th><th>Bill no.</th><th class="r">Amount</th><th>Items</th></tr></thead>
+      <thead><tr><th>Bill date</th><th>Vendor</th><th>Work</th><th>Bill no.</th><th class="r">Amount</th><th>Items</th><th>Source</th></tr></thead>
       <tbody id="bbody"></tbody>
     </table></div>
-    <p class="note" style="margin-top:20px">Source: NREGASoft public reports for Gram Panchayat Murachh (code 1709004049), Block Pawai, District Panna. To check any row yourself, open <a href="https://nrega.dord.gov.in/stHome.aspx" target="_blank" rel="noopener">nrega.dord.gov.in</a> → Madhya Pradesh → Panna → Pawai → Murachh. Names in work titles are beneficiaries as published by the government.</p>
+    <h3 class="sect" id="sources">Sources and how to verify</h3>
+    <p class="sub">Every number above comes from one of these official reports. Each "Source" link opens our saved copy of the government page exactly as it was fetched, so it stays available even if the live page changes. To check against the live site, follow the steps on the official portal. The SHA-256 fingerprint proves the saved copy has not been edited since it was fetched.</p>
+    <div class="srclist" id="srclist"></div>
+    <p class="fine">Names in work titles and bills are beneficiaries and vendors as published by the government. The job card register lists every worker by name, so we show only counts and do not keep a copy.</p>
   </div>
   <p class="note warn" id="derr" hidden>The data file could not be loaded. The other sections still work.</p>
 </section>
@@ -250,7 +261,7 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding-block:20
 <section id="adhikari" role="tabpanel" hidden>
   <h2>Officials and their roles</h2>
   <p class="sub">What each post does and what you can ask of it. <span class="pill el">elected</span> posts are chosen by voters. <span class="pill gov">appointed</span> posts are government staff who get transferred.</p>
-  <div class="note warn">Who holds each post changes often. Current names and phone numbers are on the "Who's Who" and "Directory" pages of <a href="https://panna.nic.in" target="_blank" rel="noopener">panna.nic.in</a>. According to the October 2025 transfer list, the Collector of Panna is Smt. Usha Parmar. This may have changed since, so please verify.</div>
+  <div class="note warn">Who holds each post changes often. Current names and phone numbers are on the "Who's Who" and "Directory" pages of <a href="https://panna.nic.in" target="_blank" rel="noopener">panna.nic.in</a>. According to the October 2025 transfer list, the Collector of Panna is Smt. Usha Parmar (<a href="https://apacnewsnetwork.com/2025/10/mp-govt-transfers-24-ias-officers-ias-suresh-kumar-made-divisional-commissioner-morena/amp" target="_blank" rel="noopener">source</a>). This may have changed since, so please verify.</div>
   <div class="tbl"><table>
     <thead><tr><th>Level</th><th>Post</th><th>What they do</th><th>What you can ask for</th></tr></thead>
     <tbody>
@@ -525,9 +536,12 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding-block:20
   fetch('data/murachh.json').then(r=>{if(!r.ok)throw 0;return r.json()}).then(D=>renderData(D)).catch(()=>{$('dmeta').textContent='';$('derr').hidden=false});
 
   function renderData(D){
-    const W=D.works, B=D.bills||[], WM=D.wage_material_current, JC=D.jobcards||{};
+    const W=D.works, B=D.bills||[], WM=D.wage_material_current, JC=D.jobcards||{}, S=D.sources||{};
+    const pathOf=k=>S[k]?'NREGASoft: '+S[k].steps.join(' → '):'NREGASoft';
+    const src=(k,label,hint)=>{const x=S[k];if(!x)return '';const href=x.snapshot||x.official_entry;
+      return '<a class="src" href="'+esc(href)+'" target="_blank" rel="noopener" title="'+esc(pathOf(k)+(hint?'. '+hint:''))+'">'+(label||'Source')+' ↗</a>'};
     const when=new Date(D.meta.fetched_at);
-    $('dmeta').textContent='MGNREGA records for Gram Panchayat Murachh, fetched from the government\'s NREGASoft portal on '+when.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})+'.';
+    $('dmeta').innerHTML='MGNREGA records for Gram Panchayat Murachh, fetched from the government\'s <a href="'+esc((S.works||{}).official_entry||'https://nrega.dord.gov.in/stHome.aspx')+'" target="_blank" rel="noopener">NREGASoft portal</a> on '+when.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})+'. <a href="#sources" id="tosrc">How to verify</a>';
     $('dbody').hidden=false;
 
     // per-work flags
@@ -552,14 +566,14 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding-block:20
     const wmPct=WM&&WM.total_lakh?Math.round(100*WM.wage_lakh/WM.total_lakh):null;
 
     // tiles
-    const tile=(v,k,chip)=>'<div class="tile"><div class="v">'+v+'</div><div class="k">'+k+'</div>'+(chip||'')+'</div>';
+    const tile=(v,k,chip,sk)=>'<div class="tile"><div class="v">'+v+'</div><div class="k">'+k+'</div>'+(chip||'')+(sk?src(sk):'')+'</div>';
     $('tiles').innerHTML=
-      tile('₹'+L(total/100)+' cr','MGNREGA spending recorded on '+W.length+' works since '+years[0].slice(0,4))+
-      tile((JC.registered_people||0).toLocaleString('en-IN'),'people on '+(JC.households||0).toLocaleString('en-IN')+' job cards')+
+      tile('₹'+L(total/100)+' cr','MGNREGA spending recorded on '+W.length+' works since '+years[0].slice(0,4),'','works')+
+      tile((JC.registered_people||0).toLocaleString('en-IN'),'people on '+(JC.households||0).toLocaleString('en-IN')+' job cards','','jobcards')+
       (WM?tile('₹'+L(WM.total_lakh)+' lakh','spent so far in '+WM.fy+', '+wmPct+'% on wages',
-        wmPct<60?'<span class="stat crit">▲ Below 60% wage rule</span>':'<span class="stat ok">✓ Meets 60% wage rule</span>'):'')+
+        wmPct<60?'<span class="stat crit">▲ Below 60% wage rule</span>':'<span class="stat ok">✓ Meets 60% wage rule</span>','wage_material'):'')+
       tile(rupee(billSum),B.length+' material bills; '+topV[1]+' of them to one vendor',
-        B.length&&topV[1]/B.length>0.6?'<span class="stat warn">● One vendor dominates</span>':'');
+        B.length&&topV[1]/B.length>0.6?'<span class="stat warn">● One vendor dominates</span>':'','bills');
 
     // chart
     const cw=900,ch=260,pl=44,pr=8,pt=14,pb=44,iw=cw-pl-pr,ih=ch-pt-pb;
@@ -577,6 +591,7 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding-block:20
     });
     svg+='</svg><div class="tip" id="ctip" hidden></div>';
     $('chart').innerHTML=svg;
+    $('chart').insertAdjacentHTML('afterend','<p class="fine">Totals of each work\'s spending, grouped by the year it was sanctioned. '+src('works')+'</p>');
     const tip=$('ctip');
     $('chart').querySelectorAll('.hit').forEach(h=>{
       const i=+h.dataset.i,y=years[i],f=fy[y],bar=$('chart').querySelector('.bar[data-i="'+i+'"]');
@@ -599,15 +614,15 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding-block:20
     const dupes=Object.values(W.reduce((a,w)=>{const k=norm(w.name);(a[k]=a[k]||[]).push(w);return a},{})).filter(g=>g.length>1);
     const li=(w,extra)=>'<li>'+esc(w.name)+' <small>('+esc(w.code)+', '+w.fy+')</small>'+(extra?' · '+extra:'')+'</li>';
     const AF=[];
-    if(WM&&wmPct<60) AF.push(['crit',wmPct+'%','Only '+wmPct+'% of this year\'s spending ('+WM.fy+') went to wages','₹'+L(WM.wage_lakh)+' lakh on wages vs ₹'+L(WM.material_lakh)+' lakh on material. The rule is at least 60% on wages at Gram Panchayat level. Ask for the material bills and measurement books under RTI.','']);
-    if(lowYears.length) AF.push(['warn',lowYears.length,'Sanction years where wages were under 60% of spending',lowYears.map(y=>y+' ('+Math.round(100*fy[y].wage/fy[y].t)+'%)').join(', '),'']);
-    if(B.length&&topV[1]/B.length>0.6) AF.push(['warn',Math.round(100*topV[1]/B.length)+'%','Share of material bills going to one vendor',esc(topV[0])+' received '+topV[1]+' of '+B.length+' bills. Ask whether quotations or tenders were invited.','']);
-    if(over.length) AF.push(['crit',over.length,'Works that spent more than 20% above their estimate','Ask for the revised estimate and the Measurement Book for each.','<details><summary>Show the works</summary><ul>'+over.slice(0,40).map(w=>li(w,'₹'+L(w.est_total)+' → ₹'+L(w.exp_total)+' lakh')).join('')+'</ul></details>']);
-    if(susp.length) AF.push(['crit',susp.length,'Suspended works where money was already spent','₹'+L(susp.reduce((a,w)=>a+w.exp_total,0))+' lakh spent on works later suspended.','<details><summary>Show the works</summary><ul>'+susp.map(w=>li(w,'₹'+L(w.exp_total)+' lakh')).join('')+'</ul></details>']);
-    if(nolab.length) AF.push(['warn',nolab.length,'Works with material bought but zero labour days recorded','MGNREGA works need labour. Check whether these works exist on the ground.','<details><summary>Show the works</summary><ul>'+nolab.map(w=>li(w,'material ₹'+L(w.exp_material)+' lakh')).join('')+'</ul></details>']);
-    if(open.length) AF.push(['warn',open.length,'Works marked "physically complete" but not closed','₹'+L(open.reduce((a,w)=>a+w.exp_total,0))+' lakh spent. Payments can still be added to open works. Ask why they are not closed.','<details><summary>Show the works</summary><ul>'+open.map(w=>li(w,'₹'+L(w.exp_total)+' lakh')).join('')+'</ul></details>']);
-    if(dupes.length) AF.push(['warn',dupes.length,'Work names that appear more than once','Sometimes a genuine repeat (e.g. sanctioned in two years), sometimes a duplicate. Visit the site and check.','<details><summary>Show the works</summary><ul>'+dupes.map(g=>'<li>'+esc(g[0].name)+' <small>('+g.map(w=>w.fy+', '+w.status).join(' · ')+')</small></li>').join('')+'</ul></details>']);
-    $('aflags').innerHTML=AF.map(([c,n,t,p,x])=>'<div class="af '+c+'"><div class="n">'+n+'</div><div><b>'+t+'</b><p>'+p+'</p></div>'+x+'</div>').join('')+
+    if(WM&&wmPct<60) AF.push(['crit',wmPct+'%','Only '+wmPct+'% of this year\'s spending ('+WM.fy+') went to wages','₹'+L(WM.wage_lakh)+' lakh on wages vs ₹'+L(WM.material_lakh)+' lakh on material. The rule is at least 60% on wages at Gram Panchayat level. Ask for the material bills and measurement books under RTI.','','wage_material']);
+    if(lowYears.length) AF.push(['warn',lowYears.length,'Sanction years where wages were under 60% of spending',lowYears.map(y=>y+' ('+Math.round(100*fy[y].wage/fy[y].t)+'%)').join(', '),'','works']);
+    if(B.length&&topV[1]/B.length>0.6) AF.push(['warn',Math.round(100*topV[1]/B.length)+'%','Share of material bills going to one vendor',esc(topV[0])+' received '+topV[1]+' of '+B.length+' bills. Ask whether quotations or tenders were invited.','','bills']);
+    if(over.length) AF.push(['crit',over.length,'Works that spent more than 20% above their estimate','Ask for the revised estimate and the Measurement Book for each.','<details><summary>Show the works</summary><ul>'+over.slice(0,40).map(w=>li(w,'₹'+L(w.est_total)+' → ₹'+L(w.exp_total)+' lakh')).join('')+'</ul></details>','works']);
+    if(susp.length) AF.push(['crit',susp.length,'Suspended works where money was already spent','₹'+L(susp.reduce((a,w)=>a+w.exp_total,0))+' lakh spent on works later suspended.','<details><summary>Show the works</summary><ul>'+susp.map(w=>li(w,'₹'+L(w.exp_total)+' lakh')).join('')+'</ul></details>','works']);
+    if(nolab.length) AF.push(['warn',nolab.length,'Works with material bought but zero labour days recorded','MGNREGA works need labour. Check whether these works exist on the ground.','<details><summary>Show the works</summary><ul>'+nolab.map(w=>li(w,'material ₹'+L(w.exp_material)+' lakh')).join('')+'</ul></details>','works']);
+    if(open.length) AF.push(['warn',open.length,'Works marked "physically complete" but not closed','₹'+L(open.reduce((a,w)=>a+w.exp_total,0))+' lakh spent. Payments can still be added to open works. Ask why they are not closed.','<details><summary>Show the works</summary><ul>'+open.map(w=>li(w,'₹'+L(w.exp_total)+' lakh')).join('')+'</ul></details>','works']);
+    if(dupes.length) AF.push(['warn',dupes.length,'Work names that appear more than once','Sometimes a genuine repeat (e.g. sanctioned in two years), sometimes a duplicate. Visit the site and check.','<details><summary>Show the works</summary><ul>'+dupes.map(g=>'<li>'+esc(g[0].name)+' <small>('+g.map(w=>w.fy+', '+w.status).join(' · ')+')</small></li>').join('')+'</ul></details>','works']);
+    $('aflags').innerHTML=AF.map(([c,n,t,p,x,k])=>'<div class="af '+c+'"><div class="n">'+n+'</div><div><b>'+t+'</b><p>'+p+' '+src(k)+'</p></div>'+x+'</div>').join('')+
       '<div class="row"><button class="btn ghost" id="af2rti">Draft an RTI about these →</button></div>';
     $('af2rti').addEventListener('click',()=>{['mg','mb','vd','sa'].forEach(k=>{const c=$('ri_'+k);if(c)c.checked=true});build();show('rti');window.scrollTo({top:0})});
 
@@ -622,8 +637,8 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding-block:20
       $('wcount').textContent='('+list.length+' of '+W.length+')';
       $('wbody').innerHTML=list.slice(0,limit).map(w=>{
         const wp=w.exp_total?Math.round(100*w.wage/w.exp_total)+'%':'–';
-        return '<tr><td>'+w.fy+'</td><td>'+esc(w.name)+'<small>'+esc(w.code)+'</small>'+(w.flags.length?'<div class="chips2">'+w.flags.map(([c,t])=>'<span class="stat '+c+'">'+(c==='crit'?'▲ ':'● ')+esc(t)+'</span>').join('')+'</div>':'')+'</td><td>'+esc(w.status)+'</td><td class="r">₹'+L(w.est_total)+' L</td><td class="r">₹'+L(w.exp_total)+' L</td><td class="r">'+wp+'</td><td class="r">'+w.mandays.toLocaleString('en-IN')+'</td></tr>';
-      }).join('')||'<tr><td colspan="7">No works match these filters.</td></tr>';
+        return '<tr><td>'+w.fy+'</td><td>'+esc(w.name)+'<small>'+esc(w.code)+'</small>'+(w.flags.length?'<div class="chips2">'+w.flags.map(([c,t])=>'<span class="stat '+c+'">'+(c==='crit'?'▲ ':'● ')+esc(t)+'</span>').join('')+'</div>':'')+'</td><td>'+esc(w.status)+'</td><td class="r">₹'+L(w.est_total)+' L</td><td class="r">₹'+L(w.exp_total)+' L</td><td class="r">'+wp+'</td><td class="r">'+w.mandays.toLocaleString('en-IN')+'</td><td>'+src('works','Source','Search the page for work code '+w.code)+'</td></tr>';
+      }).join('')||'<tr><td colspan="8">No works match these filters.</td></tr>';
       $('wmore').hidden=list.length<=limit;
       $('wshown').textContent='Showing '+Math.min(limit,list.length)+' of '+list.length;
     }
@@ -636,8 +651,16 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding-block:20
     $('bcount').textContent='('+B.length+' bills, '+rupee(billSum)+')';
     $('bbody').innerHTML=B.slice().sort((a,b)=>pd(b.bill_date)-pd(a.bill_date)).map(b=>{
       const items=(b.items||[]).filter(i=>!/GST|TDS/i.test(i.material)).map(i=>esc(i.material)+(i.qty?' × '+i.qty:'')).join('; ');
-      return '<tr><td>'+esc(b.bill_date)+'</td><td>'+esc(b.vendor)+'</td><td>'+esc(b.work_name)+'<small>'+esc(b.work_code)+'</small></td><td>'+esc(b.bill_no)+'</td><td class="r">'+rupee(b.amount)+'</td><td>'+(items||'–')+'</td></tr>';
+      return '<tr><td>'+esc(b.bill_date)+'</td><td>'+esc(b.vendor)+'</td><td>'+esc(b.work_name)+'<small>'+esc(b.work_code)+'</small></td><td>'+esc(b.bill_no)+'</td><td class="r">'+rupee(b.amount)+'</td><td>'+(items||'–')+'</td><td>'+src('bills','Source','Search the page for bill no. '+b.bill_no)+'</td></tr>';
     }).join('');
+
+    const fetched=when.toLocaleString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+    const used={works:'All works, yearly totals, overrun and other work flags',bills:'Material bills and vendor share',wage_material:'This year\'s wage share',jobcards:'Job card counts'};
+    $('srclist').innerHTML=Object.entries(S).map(([k,x])=>'<div class="srcitem"><b>'+esc(x.title)+'</b> <span class="muted">· used for: '+esc(used[k]||k)+'</span>'+
+      '<ol>'+['Open <a href="'+esc(x.official_entry)+'" target="_blank" rel="noopener">nrega.dord.gov.in state reports</a>'].concat(x.steps.map(st=>'Click <b>'+esc(st)+'</b>')).map(t=>'<li>'+t+'</li>').join('')+'</ol>'+
+      '<div class="links">'+(x.snapshot?'<a href="'+esc(x.snapshot)+'" target="_blank" rel="noopener">Saved copy of the government page ↗</a>':'<span class="muted">No saved copy (lists workers by name)</span>')+'<span class="muted">Fetched '+fetched+'</span></div>'+
+      '<div class="hash">SHA-256 '+esc(x.sha256)+'</div></div>').join('');
+    $('tosrc').addEventListener('click',e=>{e.preventDefault();$('sources').scrollIntoView({behavior:'smooth'})});
 
     DATA_SUMMARY='Murachh GP MGNREGA data (NREGASoft, fetched '+D.meta.fetched_at.slice(0,10)+'): '+W.length+' works, total spending Rs '+L(total)+' lakh. '+
       (WM?'Current year '+WM.fy+': Rs '+WM.total_lakh+' lakh spent, wages '+wmPct+'%. ':'')+
