@@ -14,7 +14,8 @@ A civic guide for Murachh Gram Panchayat (Pawai, Panna, Madhya Pradesh):
 `scraper/fetch_murachh.py` walks the public NREGASoft reports (State → District → Block → Panchayat)
 and writes `data/murachh.json`. Standard-library Python only.
 
-A GitHub Action (`.github/workflows/refresh-data.yml`) runs it every Monday and commits any changes.
+NREGASoft blocks GitHub's servers (HTTP 401), so the weekly refresh runs on a Mac in India:
+`scraper/refresh_local.sh` is scheduled by a launchd job every Monday at 08:00 and pushes any changes.
 Run it by hand:
 
 ```sh
