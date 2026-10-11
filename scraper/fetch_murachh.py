@@ -56,12 +56,28 @@ def works(s, gp):
             continue
         name, code = split_work(r[1])
         out.append({
-            "code": code, "name": name, "status": r[2], "fy": r[3], "category": r[5],
+            "code": code, "name": name, "status": r[2], "fy": r[3], "agency": r[4], "category": r[5],
             "mandays": int(num(r[8])),
             "est_total": num(r[14]), "est_material": num(r[12]),
             "exp_unskilled": num(r[15]), "exp_semiskilled": num(r[16]), "exp_skilled": num(r[17]),
             "exp_material": num(r[18]), "exp_total": num(r[20]),
         })
+    return out
+
+
+def register(s, gp):
+    """Register IV (Work Register): sanction and start/finish dates for open works."""
+    page = s.get(find(gp, "Work Register"))
+    keep("register", "Work Register (Register IV)", ["R6. Registers", "Work Register"], page)
+    out = {}
+    for r in biggest_table(page):
+        if len(r) < 11 or not r[0].isdigit() or "1709004049/" not in r[1]:
+            continue
+        m = re.match(r"^(1709004049/[A-Z]+/[\w/]+?)([^\w/].*|[A-Za-z\u0900-\u097f].*)$", r[1])
+        code = m.group(1) if m else r[1].split()[0]
+        out[code] = {"ts_date": r[3], "as_date": r[4], "agency": r[5], "start_date": r[6],
+                     "expected_end": r[7], "actual_end": r[8],
+                     "sanctioned_unskilled": num(r[9]), "sanctioned_material": num(r[10])}
     return out
 
 
@@ -130,6 +146,7 @@ def main():
         },
         "works": works(s, gp),
         "bills": bills(s, gp),
+        "register": register(s, gp),
         "wage_material_current": wage_material(s, gp),
         "jobcards": jobcards(s, gp),
     }

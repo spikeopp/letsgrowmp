@@ -153,6 +153,13 @@ a.src:hover{border-bottom-style:solid}
 .srcitem ol{margin:6px 0;padding-left:20px;font-size:14px}
 .srcitem .hash{font-family:var(--f-mono);font-size:11px;color:var(--muted);word-break:break-all}
 .srcitem .links{display:flex;gap:14px;flex-wrap:wrap;font-size:14px}
+.steps{list-style:none;counter-reset:st;margin:0 0 20px;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:820px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+.steps li{counter-increment:st;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.steps li b::before{content:counter(st) ". ";color:var(--accent);font-family:var(--f-mono)}
+.steps li span{font-size:13.5px;color:var(--muted)}
+.steps em{font-style:normal;font-weight:500;color:var(--ink)}
 footer{border-top:1px solid var(--line);background:var(--panel);padding-block:20px 32px;color:var(--muted);font-size:13.5px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -183,6 +190,40 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding-block:20
   <div id="dbody" hidden>
     <div class="tiles" id="tiles"></div>
 
+    <h3 class="sect">How a work gets done, and who is responsible</h3>
+    <p class="sub">Every MGNREGA work in Murachh follows these steps. All 752 works here are recorded with the <b>Gram Panchayat</b> as the implementing agency (shown as "GP-RD Deptt" in government records).</p>
+    <ol class="steps">
+      <li><b>Proposed</b><span>Gram Sabha adds the work to the yearly plan (shelf of works). <em>Who:</em> villagers, Sarpanch.</span></li>
+      <li><b>Technical sanction (TS)</b><span>An engineer prepares the estimate and approves the design. <em>Who:</em> Sub-engineer / Assistant Engineer, Janpad Pawai.</span></li>
+      <li><b>Administrative sanction (AS)</b><span>The money is approved. <em>Who:</em> Programme Officer, Janpad Panchayat Pawai (the Janpad CEO).</span></li>
+      <li><b>Work is done</b><span>Workers are hired on job cards, attendance goes on muster rolls, material is bought from vendors. <em>Who:</em> Sarpanch, Panchayat Secretary, Gram Rozgar Sahayak.</span></li>
+      <li><b>Measured and paid</b><span>The engineer records work in the Measurement Book. Wages go straight from the MGNREGA fund to workers' bank accounts; material bills are paid to vendors. <em>Who pays:</em> Government of India (all wages, 75% of material) and Madhya Pradesh government (25% of material).</span></li>
+      <li><b>Closed and audited</b><span>The work is marked complete and checked in the social audit by the Gram Sabha.</span></li>
+    </ol>
+
+    <div class="panel">
+      <div class="phead"><h3>Year by year: what was approved, finished and pending</h3><span class="muted" id="yrsrc"></span></div>
+      <div class="tbl"><table class="data">
+        <thead><tr><th>Year sanctioned</th><th class="r">Works</th><th class="r">Finished</th><th class="r">In progress</th><th class="r">Not started</th><th class="r">Stopped</th><th class="r">Approved budget</th><th class="r">Spent</th><th class="r">Spent of budget</th></tr></thead>
+        <tbody id="ybody"></tbody>
+      </table></div>
+      <p class="fine"><b>Finished</b> = "Completed". <b>In progress</b> = "On Going", or "physical complete" (work done on the ground but accounts still open). <b>Not started</b> = "Approved" (money sanctioned, work not begun) or "New" (proposed, not yet sanctioned). <b>Stopped</b> = "Suspended".</p>
+    </div>
+
+    <h3 class="sect">Pending works <span class="muted" id="pcount"></span></h3>
+    <p class="sub">Works that are approved but not finished. Dates come from the Work Register, which the government publishes only for some open works; for the rest only the sanction year is available.</p>
+    <div class="tbl"><table class="data">
+      <thead><tr><th>Work</th><th>Status</th><th>Approved on</th><th>Started</th><th>Due by</th><th class="r">Budget</th><th class="r">Spent</th><th>Source</th></tr></thead>
+      <tbody id="pbody"></tbody>
+    </table></div>
+
+    <div class="panel" style="margin-top:24px">
+      <h3>Money in the Panchayat's own account</h3>
+      <p class="sub" style="margin-bottom:8px">MGNREGA money does not sit in the Panchayat's bank account. It is paid directly from the central MGNREGA fund to workers and vendors, so there is no MGNREGA "balance" for Murachh.</p>
+      <p class="sub" style="margin-bottom:8px">The Panchayat's own account holds <b>15th Finance Commission grants</b> (untied and tied) and state grants. Those receipts, spending and unspent balance are published on eGramSwaraj. When we checked on 11 October 2026, its <a href="https://egramswaraj.gov.in/RecExpReportNew.do?finYear=2025-2026&amp;scheme_uid=&amp;amountIn=LK" target="_blank" rel="noopener">Receipt and Expenditure report</a> showed zero for every state in India, so the figures could not be collected.</p>
+      <p class="sub" style="margin:0">To get them now, file an RTI with the Panchayat Secretary asking for the cash book, bank passbook, and year-wise receipts and expenditure of 15th Finance Commission funds. The <a href="#rti" id="torti2">RTI drafter</a> has these items ready.</p>
+    </div>
+
     <div class="panel">
       <div class="phead"><h3>MGNREGA spending by year the work was sanctioned</h3><span class="muted">₹ lakh · hover a bar for details</span></div>
       <div class="chartwrap" id="chart"></div>
@@ -202,7 +243,7 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding-block:20
       <select id="wsort" aria-label="Sort"><option value="exp">Most spent first</option><option value="new">Newest first</option><option value="over">Biggest overrun first</option></select>
     </div>
     <div class="tbl"><table class="data">
-      <thead><tr><th>Year</th><th>Work</th><th>Status</th><th class="r">Estimate</th><th class="r">Spent</th><th class="r">Wage %</th><th class="r">Person-days</th><th>Source</th></tr></thead>
+      <thead><tr><th>Year</th><th>Work</th><th>Status</th><th>Done by</th><th>Dates</th><th class="r">Approved budget</th><th class="r">Spent</th><th class="r">Wages</th><th>Source</th></tr></thead>
       <tbody id="wbody"></tbody>
     </table></div>
     <div class="row"><button class="btn ghost" id="wmore">Show more</button><span class="muted" id="wshown"></span></div>
@@ -540,6 +581,9 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding-block:20
   const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const L=v=>(Math.round(v*100)/100).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
   const rupee=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+  const PLAIN={'Completed':['Finished','ok'],'physical complete':['Work done, accounts open','warn'],'On Going':['In progress','warn'],'Approved':['Approved, not started','warn'],'New':['Proposed only','warn'],'Suspended':['Stopped','crit']};
+  const plain=st=>PLAIN[st]||[st,'warn'];
+  const agencyOf=a=>/^GP/i.test(a||'')?'Gram Panchayat':(a||'–');
   const wageOf=w=>w.exp_unskilled+w.exp_semiskilled+w.exp_skilled;
   const norm=s=>s.toLowerCase().replace(/[^a-z0-9ऀ-ॿ]+/g,'');
   fetch('data/murachh.json').then(r=>{if(!r.ok)throw 0;return r.json()}).then(D=>renderData(D)).catch(()=>{$('dmeta').textContent='';$('derr').hidden=false});
@@ -615,6 +659,24 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding-block:20
       h.addEventListener('mouseleave',()=>{bar.classList.remove('on');tip.hidden=true});
     });
 
+    // year by year
+    const yr={};W.forEach(w=>{const y=yr[w.fy]||(yr[w.fy]={n:0,done:0,prog:0,ns:0,stop:0,est:0,exp:0});y.n++;y.est+=w.est_total;y.exp+=w.exp_total;
+      if(w.status==='Completed')y.done++;else if(w.status==='On Going'||w.status==='physical complete')y.prog++;else if(w.status==='Approved'||w.status==='New')y.ns++;else if(w.status==='Suspended')y.stop++});
+    $('yrsrc').innerHTML=src('works');
+    const tot={n:0,done:0,prog:0,ns:0,stop:0,est:0,exp:0};
+    $('ybody').innerHTML=Object.keys(yr).sort().reverse().map(k=>{const y=yr[k];Object.keys(tot).forEach(f=>tot[f]+=y[f]);
+      const pct=y.est?Math.round(100*y.exp/y.est):0;
+      return '<tr><td>'+k+'</td><td class="r">'+y.n+'</td><td class="r">'+y.done+'</td><td class="r">'+(y.prog||'–')+'</td><td class="r">'+(y.ns||'–')+'</td><td class="r">'+(y.stop||'–')+'</td><td class="r">₹'+L(y.est)+' L</td><td class="r">₹'+L(y.exp)+' L</td><td class="r">'+(y.est?pct+'%':'–')+'</td></tr>'}).join('')+
+      '<tr><td><b>All years</b></td><td class="r"><b>'+tot.n+'</b></td><td class="r"><b>'+tot.done+'</b></td><td class="r"><b>'+tot.prog+'</b></td><td class="r"><b>'+tot.ns+'</b></td><td class="r"><b>'+tot.stop+'</b></td><td class="r"><b>₹'+L(tot.est)+' L</b></td><td class="r"><b>₹'+L(tot.exp)+' L</b></td><td class="r"><b>'+(tot.est?Math.round(100*tot.exp/tot.est)+'%':'–')+'</b></td></tr>';
+
+    // pending works
+    const R=D.register||{};
+    const pend=W.filter(w=>w.status!=='Completed').sort((a,b)=>b.fy.localeCompare(a.fy)||b.est_total-a.est_total);
+    $('pcount').textContent='('+pend.length+')';
+    $('pbody').innerHTML=pend.map(w=>{const r=R[w.code]||{};const [pl,c]=plain(w.status);
+      return '<tr><td>'+esc(w.name)+'<small>'+esc(w.code)+' · sanctioned '+w.fy+'</small></td><td><span class="stat '+c+'">'+esc(pl)+'</span></td><td>'+(esc(r.as_date)||'–')+'</td><td>'+(esc(r.start_date)||'–')+'</td><td>'+(esc(r.expected_end)||'–')+'</td><td class="r">₹'+L(w.est_total)+' L</td><td class="r">₹'+L(w.exp_total)+' L</td><td>'+(r.as_date?src('register','Source','Search the page for work code '+w.code):src('works','Source','Search the page for work code '+w.code))+'</td></tr>'}).join('');
+    $('torti2').addEventListener('click',e=>{e.preventDefault();['fc','cb'].forEach(k=>{const c=$('ri_'+k);if(c)c.checked=true});build();show('rti');window.scrollTo({top:0})});
+
     // automatic flags
     const over=W.filter(w=>w.est_total>0&&w.over>1.2).sort((a,b)=>b.over-a.over);
     const susp=W.filter(w=>w.status==='Suspended'&&w.exp_total>0);
@@ -647,8 +709,10 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding-block:20
       $('wcount').textContent='('+list.length+' of '+W.length+')';
       $('wbody').innerHTML=list.slice(0,limit).map(w=>{
         const wp=w.exp_total?Math.round(100*w.wage/w.exp_total)+'%':'–';
-        return '<tr><td>'+w.fy+'</td><td>'+esc(w.name)+'<small>'+esc(w.code)+'</small>'+(w.flags.length?'<div class="chips2">'+w.flags.map(([c,t])=>'<span class="stat '+c+'">'+(c==='crit'?'▲ ':'● ')+esc(t)+'</span>').join('')+'</div>':'')+'</td><td>'+esc(w.status)+'</td><td class="r">₹'+L(w.est_total)+' L</td><td class="r">₹'+L(w.exp_total)+' L</td><td class="r">'+wp+'</td><td class="r">'+w.mandays.toLocaleString('en-IN')+'</td><td>'+src('works','Source','Search the page for work code '+w.code)+'</td></tr>';
-      }).join('')||'<tr><td colspan="8">No works match these filters.</td></tr>';
+        const r=R[w.code]||{};const [pl,c]=plain(w.status);
+        const dates=r.as_date?'Approved '+esc(r.as_date)+'<br>Started '+esc(r.start_date||'–')+'<br>Due '+esc(r.expected_end||'–')+(r.actual_end?'<br>Finished '+esc(r.actual_end):''):'<span class="muted">Sanctioned in '+w.fy+'</span>';
+        return '<tr><td>'+w.fy+'</td><td>'+esc(w.name)+'<small>'+esc(w.code)+'</small>'+(w.flags.length?'<div class="chips2">'+w.flags.map(([c2,t])=>'<span class="stat '+c2+'">'+(c2==='crit'?'▲ ':'● ')+esc(t)+'</span>').join('')+'</div>':'')+'</td><td><span class="stat '+c+'">'+esc(pl)+'</span></td><td>'+esc(agencyOf(w.agency))+'</td><td>'+dates+'</td><td class="r">₹'+L(w.est_total)+' L</td><td class="r">₹'+L(w.exp_total)+' L</td><td class="r">'+wp+'</td><td>'+src('works','Source','Search the page for work code '+w.code)+'</td></tr>';
+      }).join('')||'<tr><td colspan="9">No works match these filters.</td></tr>';
       $('wmore').hidden=list.length<=limit;
       $('wshown').textContent='Showing '+Math.min(limit,list.length)+' of '+list.length;
     }
@@ -665,7 +729,7 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding-block:20
     }).join('');
 
     const fetched=when.toLocaleString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
-    const used={works:'All works, yearly totals, overrun and other work flags',bills:'Material bills and vendor share',wage_material:'This year\'s wage share',jobcards:'Job card counts'};
+    const used={register:'Approval, start and due dates of open works',works:'All works, yearly totals, overrun and other work flags',bills:'Material bills and vendor share',wage_material:'This year\'s wage share',jobcards:'Job card counts'};
     $('srclist').innerHTML=Object.entries(S).map(([k,x])=>'<div class="srcitem"><b>'+esc(x.title)+'</b> <span class="muted">· used for: '+esc(used[k]||k)+'</span>'+
       '<ol>'+['Open <a href="'+esc(x.official_entry)+'" target="_blank" rel="noopener">nrega.dord.gov.in state reports</a>'].concat(x.steps.map(st=>'Click <b>'+esc(st)+'</b>')).map(t=>'<li>'+t+'</li>').join('')+'</ol>'+
       '<div class="links">'+(x.snapshot?'<a href="'+esc(snap(x.snapshot))+'" target="_blank" rel="noopener">Saved copy of the government page ↗</a>':'<span class="muted">No saved copy (lists workers by name)</span>')+'<span class="muted">Fetched '+fetched+'</span></div>'+
