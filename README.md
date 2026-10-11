@@ -1,8 +1,10 @@
-# LetsGrowMP — Murachh Jan Jaankari
+# LetsGrowMP — Murachh Civic Guide
 
-Gram Murachh, Tehsil/Janpad Pawai, Zila Panna (Madhya Pradesh) ke liye civic jaankari portal:
-sarkari dhaancha, adhikari aur unka kaam, schemes ke official portals, red-flag checklist,
-RTI application generator, aur shikayat ka kram.
+A civic information guide for Murachh village, Pawai Tehsil/Janpad, Panna District (Madhya Pradesh):
+government structure, officials and their roles, official scheme portals, a red-flag checklist,
+an RTI application drafter, and complaint channels.
 
-Saari jaankari sarkari public sources ki taraf rasta dikhati hai. Adhikariyon ke naam aur
-niyam badalte rehte hain — har baat official portal par verify karein.
+Live: https://spikeopp.github.io/letsgrowmp/
+
+Everything points to official public sources. Officials' names and rules change over time —
+verify on the official portal.

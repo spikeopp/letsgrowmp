@@ -1,307 +1,302 @@
 <!doctype html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Gram Murachh (Pawai, Panna, MP) ke adhikari, funds, schemes, red-flag checklist, RTI generator aur shikayat ka kram.">
+<meta name="description" content="Civic guide for Murachh village (Pawai, Panna, Madhya Pradesh): officials, funds, schemes, red-flag checklist, RTI drafter and complaint channels.">
 <style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 </head>
 <body>
-<title>Murachh Jan Jaankari</title>
+<title>Murachh Civic Guide</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700&family=Tiro+Devanagari+Hindi&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: a civic register — sticky tab strip, one column of ledger-like sections, stamp-coloured accents */
+/* Layout: a clean civic register on white — sticky tab strip, one column of sections, light-blue panels. Single light theme by design. */
 :root{
-  --bg:#F2F4F1; --surface:#FFFFFF; --ink:#1B2422; --muted:#5A6764; --line:#D5DCD8;
-  --accent:#0E6B5E; --accent-soft:#DCEDE9; --ochre:#9A6412; --ochre-soft:#F6EAD3;
-  --red:#B3261E; --red-soft:#F8E0DD; --green:#2E7D32;
-  --f-display:"Tiro Devanagari Hindi",Georgia,serif;
-  --f-body:"Mukta",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --bg:#FFFFFF; --panel:#F3F8FE; --ink:#0F2742; --muted:#4F6782; --line:#D3E3F4;
+  --accent:#1D6FC4; --accent-soft:#E2EFFC; --sky:#BFDCF7;
+  --ochre:#94600F; --ochre-soft:#FBF1DE; --red:#B3261E; --red-soft:#FBE7E5; --green:#2E7D32;
+  --f-display:"Source Serif 4",Georgia,serif;
+  --f-body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#121816; --surface:#1A2220; --ink:#E5ECE9; --muted:#9AA9A5; --line:#2D3936;
-  --accent:#5CC2B0; --accent-soft:#183A34; --ochre:#E0A84E; --ochre-soft:#3A2C14;
-  --red:#F08A80; --red-soft:#3F1D1A; --green:#7BC77F; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#121816; --surface:#1A2220; --ink:#E5ECE9; --muted:#9AA9A5; --line:#2D3936;
-  --accent:#5CC2B0; --accent-soft:#183A34; --ochre:#E0A84E; --ochre-soft:#3A2C14;
-  --red:#F08A80; --red-soft:#3F1D1A; --green:#7BC77F; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6}
 a{color:var(--accent)}
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,label:focus-within{outline:2px solid var(--accent);outline-offset:2px}
 .wrap{max-width:980px;margin:0 auto;padding-inline:16px}
-header.top{padding-block:28px 18px;border-bottom:1px solid var(--line)}
+header.top{padding-block:32px 22px;background:linear-gradient(180deg,var(--accent-soft),var(--bg));border-bottom:1px solid var(--line)}
 .crumb{font-family:var(--f-mono);font-size:12.5px;color:var(--muted);letter-spacing:.04em;display:flex;flex-wrap:wrap;gap:6px}
-.crumb b{color:var(--ink);font-weight:500}
-h1{font-family:var(--f-display);font-weight:400;font-size:clamp(30px,5vw,44px);line-height:1.15;margin:.3em 0 .2em;text-wrap:balance}
+.crumb b{color:var(--accent);font-weight:500}
+h1{font-family:var(--f-display);font-weight:600;font-size:clamp(30px,5vw,44px);line-height:1.15;margin:.3em 0 .25em;text-wrap:balance}
 .lede{color:var(--muted);max-width:65ch;margin:0}
 nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
 nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto;padding-block:8px;scrollbar-width:none}
 nav.tabs button{flex:0 0 auto;font:500 14.5px var(--f-body);color:var(--muted);background:none;border:1px solid transparent;border-radius:6px;padding:6px 12px;cursor:pointer}
-nav.tabs button[aria-selected="true"]{color:var(--accent);background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 30%,transparent)}
+nav.tabs button:hover{color:var(--ink);background:var(--panel)}
+nav.tabs button[aria-selected="true"]{color:var(--accent);background:var(--accent-soft);border-color:var(--sky)}
 main section{padding-block:28px 48px}
-h2{font-family:var(--f-display);font-weight:400;font-size:28px;margin:0 0 6px;text-wrap:balance}
+h2{font-family:var(--f-display);font-weight:600;font-size:28px;margin:0 0 6px;text-wrap:balance}
 h3{font-size:17px;margin:0 0 4px}
 .sub{color:var(--muted);margin:0 0 22px;max-width:65ch}
-.label{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.note{border-left:3px solid var(--ochre);background:var(--ochre-soft);padding:10px 14px;border-radius:0 6px 6px 0;font-size:14.5px;margin:0 0 20px}
+.label{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.note{border-left:3px solid var(--accent);background:var(--accent-soft);padding:10px 14px;border-radius:0 6px 6px 0;font-size:14.5px;margin:0 0 20px}
+.note.warn{border-color:var(--ochre);background:var(--ochre-soft)}
 .note.red{border-color:var(--red);background:var(--red-soft)}
 /* hierarchy */
 .tracks{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media (max-width:680px){.tracks{grid-template-columns:1fr}}
-.track{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px}
-.track ol{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:0}
-.track li{position:relative;padding:8px 0 8px 22px;border-left:2px solid var(--line);margin-left:6px}
-.track li::before{content:"";position:absolute;left:-7px;top:15px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid var(--accent)}
+.track{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px}
+.track ol{list-style:none;margin:12px 0 0;padding:0}
+.track li{position:relative;padding:8px 0 8px 22px;border-left:2px solid var(--sky);margin-left:6px}
+.track li::before{content:"";position:absolute;left:-7px;top:15px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
 .track li b{display:block}
 .track li span{color:var(--muted);font-size:14px}
 .track li.here::before{background:var(--accent)}
 /* officer table */
-.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
 table{border-collapse:collapse;width:100%;min-width:720px;font-size:14.5px}
 th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
-th{font-family:var(--f-mono);font-weight:500;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:color-mix(in srgb,var(--surface) 85%,var(--line))}
+th{font-family:var(--f-mono);font-weight:500;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--panel)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--panel) 55%,var(--bg))}
 tr:last-child td{border-bottom:0}
 td.lvl{font-family:var(--f-mono);font-size:12px;color:var(--muted);white-space:nowrap}
 .pill{display:inline-block;font-family:var(--f-mono);font-size:11px;padding:1px 7px;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
 .pill.el{color:var(--accent)} .pill.gov{color:var(--ochre)}
 /* source cards */
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
 .card .what{font-size:14.5px;color:var(--muted);margin:0}
 .card ol{margin:0;padding-left:20px;font-size:14px}
 .card .url{font-family:var(--f-mono);font-size:13px;word-break:break-all;margin-top:auto}
 /* red flags */
 .flags{display:flex;flex-direction:column;gap:22px}
-.flaggroup h3{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-.flag{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-left-width:4px;border-radius:6px;margin-top:8px;cursor:pointer}
+.flag{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:12px 14px;background:var(--bg);border:1px solid var(--line);border-left-width:4px;border-radius:6px;margin-top:8px;cursor:pointer}
 .flag.hi{border-left-color:var(--red)} .flag.md{border-left-color:var(--ochre)}
 .flag input{margin-top:5px;accent-color:var(--red);width:17px;height:17px}
 .flag .how{grid-column:2;font-size:13.5px;color:var(--muted)}
 .flag.on{background:var(--red-soft)}
-.tally{position:sticky;bottom:0;margin-top:20px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+.tally{position:sticky;bottom:0;margin-top:20px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
 .tally b{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
 /* forms */
-.form{display:grid;grid-template-columns:1fr 1fr;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px}
 @media (max-width:680px){.form{grid-template-columns:1fr}}
 .form .full{grid-column:1/-1}
 .field{display:flex;flex-direction:column;gap:4px;min-width:0}
 .field label,.field legend{font-size:13.5px;font-weight:500}
-input[type=text],input[type=tel],select,textarea{font:inherit;font-size:15px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%}
+input[type=text],select,textarea{font:inherit;font-size:15px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%}
 fieldset{border:0;padding:0;margin:0}
 .checks{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;font-size:14px}
 @media (max-width:680px){.checks{grid-template-columns:1fr}}
 .checks label{display:flex;gap:8px;align-items:flex-start;font-weight:400}
 .checks input{margin-top:5px;accent-color:var(--accent)}
-.btn{font:500 15px var(--f-body);background:var(--accent);color:var(--surface);border:0;border-radius:6px;padding:9px 16px;cursor:pointer}
-.btn.ghost{background:none;color:var(--accent);border:1px solid var(--accent)}
+.btn{font:500 15px var(--f-body);background:var(--accent);color:var(--bg);border:0;border-radius:6px;padding:9px 16px;cursor:pointer}
+.btn.ghost{background:var(--bg);color:var(--accent);border:1px solid var(--accent)}
 .btn:disabled{opacity:.5;cursor:default}
-.out{white-space:pre-wrap;font-family:var(--f-body);font-size:15px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px;margin-top:16px;line-height:1.75}
+.out{white-space:pre-wrap;font-size:15px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:18px;margin-top:16px;line-height:1.75}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
 .toast{font-size:13.5px;color:var(--green)}
 /* ladder */
 .ladder{list-style:none;margin:0;padding:0;counter-reset:s;display:flex;flex-direction:column;gap:10px}
-.ladder li{counter-increment:s;display:grid;grid-template-columns:40px 1fr;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px}
+.ladder li{counter-increment:s;display:grid;grid-template-columns:40px 1fr;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px}
 .ladder li::before{content:counter(s);font-family:var(--f-mono);font-size:20px;color:var(--accent);line-height:1.2}
 .ladder p{margin:2px 0 0;font-size:14.5px;color:var(--muted)}
 .ladder .url{font-family:var(--f-mono);font-size:13px;word-break:break-all}
 /* ask */
-.ask{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px}
+.ask{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px}
 .ask textarea{min-height:84px;resize:vertical}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.chip{font:14px var(--f-body);background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+.chip{font:14px var(--f-body);background:var(--bg);border:1px solid var(--sky);border-radius:99px;padding:4px 12px;cursor:pointer;color:var(--ink)}
 .answer{white-space:pre-wrap;margin-top:16px;font-size:15.5px;line-height:1.7;min-height:1em}
-footer{border-top:1px solid var(--line);padding-block:20px 32px;color:var(--muted);font-size:13.5px}
+footer{border-top:1px solid var(--line);background:var(--panel);padding-block:20px 32px;color:var(--muted);font-size:13.5px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
 <header class="top"><div class="wrap">
-  <div class="crumb"><span>Madhya Pradesh</span>›<span>Zila Panna</span>›<span>Tehsil / Janpad Pawai</span>›<b>Gram Murachh</b></div>
-  <h1>Murachh Jan Jaankari</h1>
-  <p class="lede">Panchayat se lekar Collector tak: kaun adhikari kya karta hai, paisa kahan se aata hai, uska hisaab kahan dikhta hai, aur gadbadi dikhe to kya karein. Sab kuchh sarkari public records par based.</p>
+  <div class="crumb"><span>Madhya Pradesh</span>›<span>Panna District</span>›<span>Pawai Tehsil / Janpad</span>›<b>Murachh Village</b></div>
+  <h1>Murachh Civic Guide</h1>
+  <p class="lede">From the Gram Panchayat up to the District Collector: who does what, where the money comes from, where its accounts are published, and what to do if something looks wrong. Everything here points to official public records.</p>
 </div></header>
 
 <nav class="tabs" aria-label="Sections"><div class="wrap" role="tablist">
-  <button role="tab" data-t="poocho" aria-selected="true">Poochhiye</button>
-  <button role="tab" data-t="dhaancha">Dhaancha</button>
-  <button role="tab" data-t="adhikari">Adhikari &amp; kaam</button>
-  <button role="tab" data-t="paisa">Paisa &amp; data</button>
+  <button role="tab" data-t="poocho" aria-selected="true">Ask</button>
+  <button role="tab" data-t="dhaancha">Structure</button>
+  <button role="tab" data-t="adhikari">Officials &amp; roles</button>
+  <button role="tab" data-t="paisa">Funds &amp; data</button>
   <button role="tab" data-t="flags">Red flags</button>
-  <button role="tab" data-t="rti">RTI banayein</button>
-  <button role="tab" data-t="shikayat">Shikayat</button>
+  <button role="tab" data-t="rti">RTI drafter</button>
+  <button role="tab" data-t="shikayat">Complaints</button>
 </div></nav>
 
 <main class="wrap">
 
 <!-- ASK -->
 <section id="poocho" role="tabpanel">
-  <h2>Kuchh bhi poochhiye</h2>
-  <p class="sub">Murachh, Pawai ya Panna ke baare mein sawaal likhiye: kis scheme ka paisa kahan dekhein, kaun sa adhikari zimmedar hai, RTI mein kya maangein. Jawab Claude dega.</p>
+  <h2>Ask a question</h2>
+  <p class="sub">Ask anything about Murachh, Pawai or Panna: where to find a scheme's spending, which official is responsible, what to request under RTI. Claude will answer.</p>
   <div class="ask" id="askbox">
-    <div class="field"><label for="q">Aapka sawaal</label>
-      <textarea id="q" placeholder="Jaise: Murachh mein MGNREGA ke kaam ka muster roll kaise dekhun?"></textarea></div>
+    <div class="field"><label for="q">Your question</label>
+      <textarea id="q" placeholder="For example: How do I see the MGNREGA muster rolls for Murachh?"></textarea></div>
     <div class="chips" id="chips">
-      <button class="chip">15th Finance Commission ka paisa kaise check karun?</button>
-      <button class="chip">PMAY-G awaas list mein naam galat hai to kya karun?</button>
-      <button class="chip">Sarpanch aur Sachiv mein se payment kaun karta hai?</button>
-      <button class="chip">Social audit report kahan milegi?</button>
+      <button class="chip">How do I check 15th Finance Commission spending?</button>
+      <button class="chip">What if a name on the PMAY-G housing list is wrong?</button>
+      <button class="chip">Who approves payments, the Sarpanch or the Secretary?</button>
+      <button class="chip">Where can I find the social audit report?</button>
     </div>
-    <div class="row"><button class="btn" id="askbtn">Poochhiye</button><span class="toast" id="askstat"></span></div>
+    <div class="row"><button class="btn" id="askbtn">Ask</button><span class="toast" id="askstat"></span></div>
     <div class="answer" id="ans" aria-live="polite"></div>
   </div>
-  <p class="note" id="asknote" hidden>Is view mein Claude se sawaal poochhne ki suvidha uplabdh nahi hai. Baaki saare sections poori tarah kaam karte hain.</p>
-  <p class="note">Claude ke paas sarkari websites ka live data nahi hai. Woh batayega ki data <b>kahan aur kaise</b> milega. Kisi bhi naam ya rakam ko official portal par khud verify karein.</p>
+  <p class="note warn" id="asknote" hidden>Asking Claude is not available in this view. Every other section works fully.</p>
+  <p class="note">Claude has no live access to government websites. It tells you <b>where and how</b> to find the data. Verify every name and figure on the official portal yourself.</p>
 </section>
 
 <!-- STRUCTURE -->
 <section id="dhaancha" role="tabpanel" hidden>
-  <h2>Sarkar ka dhaancha, Murachh se Bhopal tak</h2>
-  <p class="sub">Gaon ke kaam do raaston se chalte hain. Vikas aur schemes Panchayati Raj ke raaste aati hain. Zameen, certificate aur kanoon-vyavastha Revenue ke raaste.</p>
-  <div class="note"><b>Pehla kadam:</b> Murachh khud ek Gram Panchayat hai ya kisi doosri GP ka hissa, yeh <a href="https://lgdirectory.gov.in" target="_blank" rel="noopener">lgdirectory.gov.in</a> par "Village" search karke confirm karein. Saare portals mein isi GP ka naam chunna hoga.</div>
+  <h2>How government is organised, from Murachh to Bhopal</h2>
+  <p class="sub">Village affairs run along two lines. Development work and welfare schemes come through the Panchayati Raj line. Land, certificates and law and order come through the Revenue line.</p>
+  <div class="note"><b>First step:</b> check whether Murachh is its own Gram Panchayat or part of a neighbouring one. Search the village on <a href="https://lgdirectory.gov.in" target="_blank" rel="noopener">lgdirectory.gov.in</a>. You will need that Gram Panchayat's name on every portal below.</div>
   <div class="tracks">
-    <div class="track"><div class="label">Vikas · Panchayati Raj</div>
+    <div class="track"><div class="label">Development · Panchayati Raj</div>
       <ol>
-        <li class="here"><b>Gram Sabha + Gram Panchayat</b><span>Sarpanch, Panch, Sachiv, Rozgar Sahayak</span></li>
-        <li><b>Janpad Panchayat Pawai</b><span>CEO Janpad, Janpad Adhyaksh, Sub-engineer</span></li>
-        <li><b>Zila Panchayat Panna</b><span>CEO Zila Panchayat, Zila Adhyaksh</span></li>
-        <li><b>Panchayat &amp; Gramin Vikas Vibhag, MP</b><span>Bhopal: rajya star ki schemes aur fund release</span></li>
-        <li><b>Kendra Sarkar</b><span>Panchayati Raj Mantralaya, Gramin Vikas Mantralaya</span></li>
+        <li class="here"><b>Gram Sabha + Gram Panchayat</b><span>Sarpanch, ward members, Secretary, Employment Assistant</span></li>
+        <li><b>Janpad Panchayat Pawai</b><span>Janpad CEO, Janpad President, Sub-engineer</span></li>
+        <li><b>Zila Panchayat Panna</b><span>Zila Panchayat CEO, Zila President</span></li>
+        <li><b>Panchayat &amp; Rural Development Dept, MP</b><span>Bhopal: state schemes and fund releases</span></li>
+        <li><b>Government of India</b><span>Ministry of Panchayati Raj, Ministry of Rural Development</span></li>
       </ol></div>
-    <div class="track"><div class="label">Revenue · Zameen &amp; kanoon</div>
+    <div class="track"><div class="label">Revenue · Land &amp; law</div>
       <ol>
-        <li class="here"><b>Patwari halka</b><span>Khasra, B-1, naksha</span></li>
-        <li><b>Revenue Inspector (RI)</b><span>Seemankan, jaanch</span></li>
-        <li><b>Tehsildar Pawai</b><span>Namantaran, batwara, praman-patra</span></li>
-        <li><b>SDM Pawai</b><span>Appeal, anuvibhag ka prashasan</span></li>
-        <li><b>Collector Panna</b><span>Poore zile ka mukhiya, MGNREGA ka District Programme Coordinator</span></li>
+        <li class="here"><b>Patwari circle</b><span>Khasra, B-1, village map</span></li>
+        <li><b>Revenue Inspector (RI)</b><span>Boundary marking, inquiries</span></li>
+        <li><b>Tehsildar, Pawai</b><span>Mutation, partition, certificates</span></li>
+        <li><b>SDM, Pawai</b><span>Appeals, sub-division administration</span></li>
+        <li><b>Collector, Panna</b><span>Head of the district; District Programme Coordinator for MGNREGA</span></li>
       </ol></div>
   </div>
 </section>
 
 <!-- OFFICERS -->
 <section id="adhikari" role="tabpanel" hidden>
-  <h2>Adhikari aur unka kaam</h2>
-  <p class="sub">Har pad ka kaam, aur unse kya maang sakte hain. <span class="pill el">chuna hua</span> pad janta chunti hai. <span class="pill gov">sarkari</span> pad sarkari karmchari ka hai, jiska transfer hota hai.</p>
-  <div class="note">Aaj kaun kis pad par hai, yeh badalta rehta hai. Taaza naam aur phone number <a href="https://panna.nic.in" target="_blank" rel="noopener">panna.nic.in</a> ke "Who's Who" aur "Directory" pages par milte hain. Oct 2025 ki transfer list ke mutabik Collector Panna Smt. Usha Parmar hain. Iske baad badlav hua ho sakta hai, isliye verify karein.</div>
+  <h2>Officials and their roles</h2>
+  <p class="sub">What each post does and what you can ask of it. <span class="pill el">elected</span> posts are chosen by voters. <span class="pill gov">appointed</span> posts are government staff who get transferred.</p>
+  <div class="note warn">Who holds each post changes often. Current names and phone numbers are on the "Who's Who" and "Directory" pages of <a href="https://panna.nic.in" target="_blank" rel="noopener">panna.nic.in</a>. According to the October 2025 transfer list, the Collector of Panna is Smt. Usha Parmar. This may have changed since, so please verify.</div>
   <div class="tbl"><table>
-    <thead><tr><th>Star</th><th>Pad</th><th>Kya kaam karta hai</th><th>Aap kya maang sakte hain</th></tr></thead>
+    <thead><tr><th>Level</th><th>Post</th><th>What they do</th><th>What you can ask for</th></tr></thead>
     <tbody>
-      <tr><td class="lvl">Gaon</td><td><b>Gram Sabha</b><br><span class="pill el">sabhi voters</span></td><td>GPDP (saal ka vikas plan) paas karti hai, labharthi chunti hai, social audit karti hai</td><td>Har kaam ka hisaab, meeting ke minutes, labharthi list padh kar sunana</td></tr>
-      <tr><td class="lvl">Gaon</td><td><b>Sarpanch</b><br><span class="pill el">chuna hua</span></td><td>GP ka mukhiya. Kaam ke prastav, aur payment par Sachiv ke saath digital signature</td><td>Kaun sa kaam kitne mein, kis thekedar/vendor ko payment</td></tr>
-      <tr><td class="lvl">Gaon</td><td><b>Panch</b><br><span class="pill el">chuna hua</span></td><td>Apne ward ka pratinidhi, GP meeting mein vote</td><td>Ward ke kaam ki jaankari, meeting mein sawaal uthwana</td></tr>
-      <tr><td class="lvl">Gaon</td><td><b>Panchayat Sachiv</b><br><span class="pill gov">sarkari</span></td><td>Cash book, registers, eGramSwaraj entry, bill-voucher. GP ka Lok Suchna Adhikari (RTI officer)</td><td>Cash book, vouchers, prastav register ki copy (RTI se)</td></tr>
-      <tr><td class="lvl">Gaon</td><td><b>Gram Rozgar Sahayak</b><br><span class="pill gov">samvida</span></td><td>MGNREGA job card, kaam ki maang, muster roll, majdoori entry</td><td>Job card, kaam maangne ki rasid (dated), muster roll</td></tr>
-      <tr><td class="lvl">Gaon</td><td><b>Patwari</b><br><span class="pill gov">sarkari</span></td><td>Zameen ka record, girdawari, fasal nuksaan survey</td><td>Khasra/B-1 ki nakal, PM-Kisan verification</td></tr>
-      <tr><td class="lvl">Gaon</td><td><b>Anganwadi / ASHA / ANM</b><br><span class="pill gov">sarkari</span></td><td>Poshan aahaar, teekakaran, garbhvati mahilaon ki dekhbhaal</td><td>Stock register, labharthi list</td></tr>
-      <tr><td class="lvl">Block</td><td><b>Sub-engineer (RES / Janpad)</b><br><span class="pill gov">sarkari</span></td><td>Kaam ka estimate, Measurement Book (MB), mulyankan (valuation)</td><td>Estimate aur MB ki copy. Inhi se pata chalta hai kaam kitna hua</td></tr>
-      <tr><td class="lvl">Block</td><td><b>CEO Janpad Panchayat Pawai</b><br><span class="pill gov">sarkari</span></td><td>Block ki saari GPs ki nigrani, MGNREGA Programme Officer, sachivon par karyavahi</td><td>Shikayat ki jaanch, GP ka audit, kaam ka site inspection</td></tr>
-      <tr><td class="lvl">Tehsil</td><td><b>Tehsildar Pawai</b><br><span class="pill gov">sarkari</span></td><td>Namantaran, batwara, aay/jaati/niwas praman-patra</td><td>Pending revenue case ki sthiti</td></tr>
-      <tr><td class="lvl">Tehsil</td><td><b>SDM Pawai</b><br><span class="pill gov">sarkari</span></td><td>Anuvibhag ka prashasan, revenue appeal, kanoon-vyavastha</td><td>Tehsil star ke faisle ke khilaaf appeal</td></tr>
-      <tr><td class="lvl">Block</td><td><b>CDPO (ICDS) / BMO / BRC</b><br><span class="pill gov">sarkari</span></td><td>Anganwadi, swasthya kendra, school ki block star nigrani</td><td>Anganwadi/school/swasthya sambandhit shikayat</td></tr>
-      <tr><td class="lvl">Zila</td><td><b>CEO Zila Panchayat Panna</b><br><span class="pill gov">IAS</span></td><td>Zile ki saari Janpad aur GP ka vikas, PMAY-G, SBM, MGNREGA monitoring</td><td>Janpad star par sunwai na ho to yahan</td></tr>
-      <tr><td class="lvl">Zila</td><td><b>Collector Panna</b><br><span class="pill gov">IAS</span></td><td>Zile ka sarvochch adhikari, Jan Sunwai, saari schemes ki samiksha</td><td>Har Mangalwar Jan Sunwai mein seedhi shikayat</td></tr>
+      <tr><td class="lvl">Village</td><td><b>Gram Sabha</b><br><span class="pill el">all voters</span></td><td>Approves the annual development plan (GPDP), selects beneficiaries, conducts social audits</td><td>Accounts of every work, meeting minutes, beneficiary lists read out aloud</td></tr>
+      <tr><td class="lvl">Village</td><td><b>Sarpanch</b><br><span class="pill el">elected</span></td><td>Head of the Gram Panchayat. Proposes works and co-signs payments digitally with the Secretary</td><td>Which work cost how much, and which contractor or vendor was paid</td></tr>
+      <tr><td class="lvl">Village</td><td><b>Panch (ward member)</b><br><span class="pill el">elected</span></td><td>Represents a ward and votes in Panchayat meetings</td><td>Details of works in your ward; raising questions in meetings</td></tr>
+      <tr><td class="lvl">Village</td><td><b>Panchayat Secretary</b><br><span class="pill gov">appointed</span></td><td>Keeps the cash book and registers, enters data on eGramSwaraj, handles bills and vouchers. Public Information Officer for RTI</td><td>Certified copies of the cash book, vouchers and resolutions register (through RTI)</td></tr>
+      <tr><td class="lvl">Village</td><td><b>Gram Rozgar Sahayak</b><br><span class="pill gov">contract</span></td><td>MGNREGA job cards, work demand, muster rolls, wage entries</td><td>Job card, dated receipt for work demanded, muster rolls</td></tr>
+      <tr><td class="lvl">Village</td><td><b>Patwari</b><br><span class="pill gov">appointed</span></td><td>Land records, crop surveys, crop-loss assessments</td><td>Copies of Khasra/B-1, PM-Kisan verification</td></tr>
+      <tr><td class="lvl">Village</td><td><b>Anganwadi / ASHA / ANM</b><br><span class="pill gov">appointed</span></td><td>Nutrition supply, vaccinations, care of pregnant women</td><td>Stock register, beneficiary list</td></tr>
+      <tr><td class="lvl">Block</td><td><b>Sub-engineer (RES / Janpad)</b><br><span class="pill gov">appointed</span></td><td>Prepares estimates, records the Measurement Book (MB), values completed work</td><td>Copies of the estimate and MB. These show how much work was actually done</td></tr>
+      <tr><td class="lvl">Block</td><td><b>CEO, Janpad Panchayat Pawai</b><br><span class="pill gov">appointed</span></td><td>Supervises all Gram Panchayats in the block; MGNREGA Programme Officer; can act against Secretaries</td><td>Inquiry into complaints, Panchayat audits, site inspections</td></tr>
+      <tr><td class="lvl">Tehsil</td><td><b>Tehsildar, Pawai</b><br><span class="pill gov">appointed</span></td><td>Mutation, partition, income/caste/domicile certificates</td><td>Status of pending revenue cases</td></tr>
+      <tr><td class="lvl">Tehsil</td><td><b>SDM, Pawai</b><br><span class="pill gov">appointed</span></td><td>Sub-division administration, revenue appeals, law and order</td><td>Appeals against tehsil-level decisions</td></tr>
+      <tr><td class="lvl">Block</td><td><b>CDPO (ICDS) / BMO / BRC</b><br><span class="pill gov">appointed</span></td><td>Block-level oversight of Anganwadis, health centres and schools</td><td>Complaints about Anganwadi, school or health services</td></tr>
+      <tr><td class="lvl">District</td><td><b>CEO, Zila Panchayat Panna</b><br><span class="pill gov">IAS</span></td><td>Development across all Janpads and Panchayats; monitors PMAY-G, SBM and MGNREGA</td><td>Escalation when the Janpad does not act</td></tr>
+      <tr><td class="lvl">District</td><td><b>Collector, Panna</b><br><span class="pill gov">IAS</span></td><td>Top district official; holds Jan Sunwai; reviews all schemes</td><td>Direct complaint at the Tuesday Jan Sunwai</td></tr>
     </tbody>
   </table></div>
 </section>
 
 <!-- MONEY -->
 <section id="paisa" role="tabpanel" hidden>
-  <h2>Paisa kahan se aata hai, hisaab kahan dikhta hai</h2>
-  <p class="sub">Yeh sab public portals hain. Login ki zaroorat nahi padti. Har jagah ek hi kram mein chunein: <b>Madhya Pradesh → Panna → Pawai → apni Gram Panchayat → saal</b>.</p>
+  <h2>Where the money comes from, and where it's accounted for</h2>
+  <p class="sub">All of these are public portals and need no login. On each one, choose in this order: <b>Madhya Pradesh → Panna → Pawai → your Gram Panchayat → year</b>.</p>
   <div class="cards">
-    <div class="card"><div class="label">Panchayat ka poora hisaab</div><h3>eGramSwaraj</h3>
-      <p class="what">15th Finance Commission grant, GPDP plan, har kaam ka kharch, vouchers.</p>
-      <ol><li>Reports → Planning → Approved Action Plan</li><li>Reports → Financial Progress / Expenditure</li><li>Reports → Physical Progress (kaam ki photo, geo-tag)</li></ol>
+    <div class="card"><div class="label">Panchayat accounts</div><h3>eGramSwaraj</h3>
+      <p class="what">15th Finance Commission grants, the GPDP plan, spending on every work, vouchers.</p>
+      <ol><li>Reports → Planning → Approved Action Plan</li><li>Reports → Financial Progress / Expenditure</li><li>Reports → Physical Progress (photos, geo-tags)</li></ol>
       <a class="url" href="https://egramswaraj.gov.in" target="_blank" rel="noopener">egramswaraj.gov.in</a></div>
-    <div class="card"><div class="label">Rozgar guarantee</div><h3>MGNREGA (NREGASoft)</h3>
-      <p class="what">Job cards, kaun kitne din kaam par tha, majdoori payment, kaam ki list.</p>
-      <ol><li>Reports → Gram Panchayat → Generate Reports</li><li>R1: Job card register, muster roll</li><li>Work status, asset geo-tag (GIS), Social Audit findings</li></ol>
+    <div class="card"><div class="label">Rural employment</div><h3>MGNREGA (NREGASoft)</h3>
+      <p class="what">Job cards, who worked how many days, wage payments, list of works.</p>
+      <ol><li>Reports → Gram Panchayat → Generate Reports</li><li>R1: Job card register, muster rolls</li><li>Work status, asset geo-tags (GIS), social audit findings</li></ol>
       <a class="url" href="https://nrega.nic.in" target="_blank" rel="noopener">nrega.nic.in</a></div>
-    <div class="card"><div class="label">Awaas</div><h3>PMAY-G (AwaasSoft)</h3>
-      <p class="what">Kisko ghar mila, kitni kisht aayi, ghar bana ya nahi (photo ke saath).</p>
+    <div class="card"><div class="label">Rural housing</div><h3>PMAY-G (AwaasSoft)</h3>
+      <p class="what">Who got a house, how many instalments were paid, whether it was built (with photos).</p>
       <ol><li>AwaasSoft → Reports</li><li>Social Audit Reports → Beneficiary details for verification</li></ol>
       <a class="url" href="https://pmayg.nic.in" target="_blank" rel="noopener">pmayg.nic.in</a></div>
-    <div class="card"><div class="label">Shauchalay</div><h3>Swachh Bharat Mission (G)</h3>
-      <p class="what">Gaon mein kitne shauchalay ka paisa aaya, labharthi naam, ODF Plus status.</p>
+    <div class="card"><div class="label">Sanitation</div><h3>Swachh Bharat Mission (Gramin)</h3>
+      <p class="what">Toilet grants received in the village, beneficiary names, ODF Plus status.</p>
       <a class="url" href="https://sbm.gov.in" target="_blank" rel="noopener">sbm.gov.in</a></div>
-    <div class="card"><div class="label">Nal se jal</div><h3>Jal Jeevan Mission</h3>
-      <p class="what">Gaon ke kitne gharon mein nal connection darj hai. Zameen par asliyat se milaayein.</p>
+    <div class="card"><div class="label">Tap water</div><h3>Jal Jeevan Mission</h3>
+      <p class="what">How many households are recorded as having a tap connection. Compare with reality on the ground.</p>
       <a class="url" href="https://ejalshakti.gov.in" target="_blank" rel="noopener">ejalshakti.gov.in</a></div>
-    <div class="card"><div class="label">Kisan</div><h3>PM-Kisan</h3>
-      <p class="what">Gaon-wise labharthi list. Mare hue ya ghair-kisan naam dikhein to red flag.</p>
+    <div class="card"><div class="label">Farmers</div><h3>PM-Kisan</h3>
+      <p class="what">Village-wise beneficiary list. Deceased people or non-farmers on the list are a red flag.</p>
       <a class="url" href="https://pmkisan.gov.in" target="_blank" rel="noopener">pmkisan.gov.in</a></div>
-    <div class="card"><div class="label">MP · Parivar &amp; pension</div><h3>Samagra Portal</h3>
-      <p class="what">Samagra ID, samajik suraksha pension, parivar ki eligibility.</p>
+    <div class="card"><div class="label">MP · Family &amp; pensions</div><h3>Samagra Portal</h3>
+      <p class="what">Samagra ID, social security pensions, family eligibility.</p>
       <a class="url" href="https://samagra.gov.in" target="_blank" rel="noopener">samagra.gov.in</a></div>
-    <div class="card"><div class="label">MP · Zameen</div><h3>MP Bhulekh</h3>
-      <p class="what">Khasra, B-1, naksha. Sarkari/charnoi zameen par kabza check karne ke liye.</p>
+    <div class="card"><div class="label">MP · Land</div><h3>MP Bhulekh</h3>
+      <p class="what">Khasra, B-1, maps. Use it to check encroachment on government or grazing land.</p>
       <a class="url" href="https://mpbhulekh.gov.in" target="_blank" rel="noopener">mpbhulekh.gov.in</a></div>
-    <div class="card"><div class="label">Zila</div><h3>Panna district website</h3>
-      <p class="what">Adhikari directory, tender notices, transfer orders, scheme suchnayein.</p>
+    <div class="card"><div class="label">District</div><h3>Panna district website</h3>
+      <p class="what">Officer directory, tender notices, transfer orders, scheme notices.</p>
       <a class="url" href="https://panna.nic.in" target="_blank" rel="noopener">panna.nic.in</a></div>
   </div>
-  <p class="note" style="margin-top:20px">Mobile par <b>Meri Panchayat</b> app (Panchayati Raj Mantralaya) bhi GP ke fund, kaam aur adhikariyon ki jaankari deta hai. Ise Play Store se sirf official publisher wala hi install karein.</p>
+  <p class="note" style="margin-top:20px">On mobile, the <b>Meri Panchayat</b> app (Ministry of Panchayati Raj) also shows Panchayat funds, works and officials. Install only the version from the official publisher on the Play Store.</p>
 </section>
 
 <!-- RED FLAGS -->
 <section id="flags" role="tabpanel" hidden>
   <h2>Red flag checklist</h2>
-  <p class="sub">Portal ka data aur zameen ki asliyat milaayein. Jo gadbadi mile use tick karein. Ek red flag apne aap mein bhrashtachar ka saboot nahi hai, par yeh batata hai ki RTI ya shikayat kahan karni hai. Aapke ticks sirf is browser mein save hote hain.</p>
-  <div class="note red">Kisi ka naam lekar public mein (WhatsApp, Facebook) aarop na lagayein. Pehle documents (RTI jawab, portal screenshot, photo) ikattha karein aur shikayat sahi jagah karein. Bina saboot ke aarop par aap par maanhani ka case ho sakta hai.</div>
+  <p class="sub">Compare portal data with what you see on the ground, and tick anything that doesn't match. A red flag is not proof of corruption on its own, but it tells you where to file an RTI or a complaint. Your ticks are saved only in this browser.</p>
+  <div class="note red">Do not publicly accuse a named person (on WhatsApp, Facebook, etc.). Collect documents first (RTI replies, portal screenshots, photos) and complain to the right authority. Accusations without evidence can lead to a defamation case against you.</div>
   <div class="flags" id="flaglist"></div>
-  <div class="tally"><span>Mile red flags: <b id="tcount">0</b> <span id="thi"></span></span><button class="btn ghost" id="toRti">In par RTI banayein →</button></div>
+  <div class="tally"><span>Red flags found: <b id="tcount">0</b> <span id="thi"></span></span><button class="btn ghost" id="toRti">Draft an RTI on these →</button></div>
 </section>
 
 <!-- RTI -->
 <section id="rti" role="tabpanel" hidden>
-  <h2>RTI application banayein</h2>
-  <p class="sub">Form bharein. Neeche Hindi mein taiyar application ban jayegi. Use copy karke saade kagaz par likhein ya print karwayein, ya <a href="https://rtionline.mp.gov.in" target="_blank" rel="noopener">rtionline.mp.gov.in</a> par online daalein.</p>
+  <h2>RTI application drafter</h2>
+  <p class="sub">Fill in the form and a complete application appears below. Copy it onto plain paper, or file it online at <a href="https://rtionline.mp.gov.in" target="_blank" rel="noopener">rtionline.mp.gov.in</a>.</p>
   <form class="form" id="rtiform">
-    <div class="field"><label for="r_name">Aapka naam</label><input type="text" id="r_name" value="Ramesh Kumar"></div>
-    <div class="field"><label for="r_father">Pita / pati ka naam</label><input type="text" id="r_father" value="Shri Mohan Lal"></div>
-    <div class="field full"><label for="r_addr">Pata</label><input type="text" id="r_addr" value="Gram Murachh, Tehsil Pawai, Zila Panna (M.P.) 488446"></div>
-    <div class="field"><label for="r_office">Kis daftar ko</label>
+    <div class="field"><label for="r_name">Your name</label><input type="text" id="r_name" value="Ramesh Kumar"></div>
+    <div class="field"><label for="r_father">Father's / husband's name</label><input type="text" id="r_father" value="Shri Mohan Lal"></div>
+    <div class="field full"><label for="r_addr">Address</label><input type="text" id="r_addr" value="Village Murachh, Tehsil Pawai, District Panna (M.P.) 488446"></div>
+    <div class="field"><label for="r_office">Send to</label>
       <select id="r_office">
-        <option value="gp">Gram Panchayat (Sachiv)</option>
+        <option value="gp">Gram Panchayat (Secretary)</option>
         <option value="janpad">Janpad Panchayat Pawai</option>
-        <option value="tehsil">Tehsil karyalay Pawai</option>
+        <option value="tehsil">Tehsil Office, Pawai</option>
         <option value="zila">Zila Panchayat Panna</option>
-        <option value="coll">Collector karyalay Panna</option>
+        <option value="coll">Collector's Office, Panna</option>
       </select></div>
-    <div class="field"><label for="r_gp">Gram Panchayat ka naam</label><input type="text" id="r_gp" value="Murachh"></div>
-    <div class="field"><label for="r_from">Avadhi: kab se</label><input type="text" id="r_from" value="01-04-2022"></div>
-    <div class="field"><label for="r_to">Kab tak</label><input type="text" id="r_to" value="31-03-2026"></div>
-    <fieldset class="field full"><legend>Kya jaankari chahiye</legend>
+    <div class="field"><label for="r_gp">Gram Panchayat name</label><input type="text" id="r_gp" value="Murachh"></div>
+    <div class="field"><label for="r_from">Period from</label><input type="text" id="r_from" value="01-04-2022"></div>
+    <div class="field"><label for="r_to">Period to</label><input type="text" id="r_to" value="31-03-2026"></div>
+    <fieldset class="field full"><legend>Information requested</legend>
       <div class="checks" id="rtiitems"></div></fieldset>
-    <div class="field full"><label for="r_extra">Koi aur vishesh jaankari (optional)</label><textarea id="r_extra" rows="2" placeholder="Jaise: Ward 4 ki CC road ka estimate aur Measurement Book"></textarea></div>
-    <div class="field full"><label style="display:flex;gap:8px;align-items:center;font-weight:400"><input type="checkbox" id="r_bpl" style="accent-color:var(--accent)"> Main BPL card dhaarak hoon (fees maaf, card ki copy lagayein)</label></div>
+    <div class="field full"><label for="r_extra">Anything specific (optional)</label><textarea id="r_extra" rows="2" placeholder="For example: estimate and Measurement Book for the CC road in Ward 4"></textarea></div>
+    <div class="field full"><label style="display:flex;gap:8px;align-items:center;font-weight:400"><input type="checkbox" id="r_bpl" style="accent-color:var(--accent)"> I hold a BPL card (fee waived; attach a copy of the card)</label></div>
   </form>
   <div class="out" id="rtiout"></div>
-  <div class="row"><button class="btn" id="copyrti">Application copy karein</button><span class="toast" id="copystat" aria-live="polite"></span></div>
-  <div class="note" style="margin-top:20px"><b>Zaroori baatein:</b> MP mein fees ₹10 hai (BPL ke liye maaf). Photocopy ₹2 prati page. Application ki receiving zaroor lein. Jawab 30 din mein dena hota hai. Jawab na mile ya adhoora ho to 30 din ke andar Pratham Apeeliya Adhikari ko appeal karein, phir MP Rajya Suchna Aayog mein doosri appeal.</div>
+  <div class="row"><button class="btn" id="copyrti">Copy application</button><span class="toast" id="copystat" aria-live="polite"></span></div>
+  <div class="note" style="margin-top:20px"><b>Key points:</b> The fee in MP is ₹10 (waived for BPL applicants). Photocopies cost ₹2 per page. Always get a receipt. A reply is due within 30 days. If you get no reply or an incomplete one, file a first appeal with the First Appellate Authority within 30 days, then a second appeal with the MP State Information Commission.</div>
 </section>
 
 <!-- COMPLAINT -->
 <section id="shikayat" role="tabpanel" hidden>
-  <h2>Shikayat kahan aur kis kram mein</h2>
-  <p class="sub">Neeche wala kram aam taur par sabse tez nateeja deta hai. Har kadam par likhit shikayat dein aur uski receiving ya complaint number sambhaal kar rakhein.</p>
+  <h2>Where to complain, and in what order</h2>
+  <p class="sub">This order usually gets the fastest result. Complain in writing at every step and keep the receipt or complaint number.</p>
   <ol class="ladder">
-    <li><div><h3>Gram Sabha mein likhit sawaal</h3><p>Sawaal likh kar dein aur use minutes mein darj karwayein. Yahi aage ka saboot banta hai.</p></div></li>
-    <li><div><h3>CEO Janpad Panchayat Pawai</h3><p>GP ke kaam, MGNREGA, sachiv ke khilaaf shikayat. Avedan ki doosri copy par receiving lein.</p></div></li>
-    <li><div><h3>CM Helpline 181</h3><p>Phone 181 ya online. Shikayat L1 se L4 tak apne aap upar ke adhikari ke paas jaati hai. Bina santushti ke band na hone dein.</p><span class="url"><a href="https://cmhelpline.mp.gov.in" target="_blank" rel="noopener">cmhelpline.mp.gov.in</a></span></div></li>
-    <li><div><h3>Jan Sunwai, har Mangalwar</h3><p>Collector karyalay Panna aur Janpad star par. Documents ke saath seedhe adhikari ke saamne pesh karein.</p></div></li>
-    <li><div><h3>MGNREGA Lokpal (Ombudsman)</h3><p>Har zile mein MGNREGA shikayaton ke liye alag Lokpal hota hai. Naam aur pata nrega.nic.in par zile ke page par milta hai.</p></div></li>
-    <li><div><h3>Rishwat maangi gayi? Lokayukta police</h3><p>Panna, Sagar sambhag mein aata hai. Rishwat maangne par Lokayukta trap karwa sakta hai. Paisa dene se pehle hi sampark karein.</p><span class="url"><a href="https://mplokayukta.nic.in" target="_blank" rel="noopener">mplokayukta.nic.in</a></span></div></li>
-    <li><div><h3>Badi aarthik gadbadi: EOW</h3><p>Lakhon ke fund ka galat istemal, farzi bill ya farzi labharthi ke sangathit ghotale ke liye.</p><span class="url"><a href="https://eow.mp.gov.in" target="_blank" rel="noopener">eow.mp.gov.in</a></span></div></li>
-    <li><div><h3>Kendra sarkar: CPGRAMS</h3><p>Kendriya schemes (PMAY-G, MGNREGA, JJM) ki shikayat seedhe mantralaya tak.</p><span class="url"><a href="https://pgportal.gov.in" target="_blank" rel="noopener">pgportal.gov.in</a></span></div></li>
+    <li><div><h3>Written question at the Gram Sabha</h3><p>Submit your question in writing and have it recorded in the minutes. This becomes evidence for later steps.</p></div></li>
+    <li><div><h3>CEO, Janpad Panchayat Pawai</h3><p>For complaints about Panchayat works, MGNREGA or the Secretary. Get a receipt stamped on your copy.</p></div></li>
+    <li><div><h3>CM Helpline 181</h3><p>Call 181 or file online. Complaints escalate automatically from L1 to L4 officials. Don't let it be closed unless you're satisfied.</p><span class="url"><a href="https://cmhelpline.mp.gov.in" target="_blank" rel="noopener">cmhelpline.mp.gov.in</a></span></div></li>
+    <li><div><h3>Jan Sunwai, every Tuesday</h3><p>Held at the Collector's office in Panna and at Janpad level. Present your documents directly to the officials.</p></div></li>
+    <li><div><h3>MGNREGA Ombudsman (Lokpal)</h3><p>Every district has an Ombudsman for MGNREGA complaints. The name and address are on the district page at nrega.nic.in.</p></div></li>
+    <li><div><h3>Asked for a bribe? Lokayukta police</h3><p>Panna falls under the Sagar division. The Lokayukta can set up a trap when someone demands a bribe. Contact them before paying anything.</p><span class="url"><a href="https://mplokayukta.nic.in" target="_blank" rel="noopener">mplokayukta.nic.in</a></span></div></li>
+    <li><div><h3>Large-scale fraud: EOW</h3><p>For misuse of lakhs in funds, fake bills, or organised fake-beneficiary scams.</p><span class="url"><a href="https://eow.mp.gov.in" target="_blank" rel="noopener">eow.mp.gov.in</a></span></div></li>
+    <li><div><h3>Central government: CPGRAMS</h3><p>Complaints about central schemes (PMAY-G, MGNREGA, JJM) go directly to the ministry.</p><span class="url"><a href="https://pgportal.gov.in" target="_blank" rel="noopener">pgportal.gov.in</a></span></div></li>
   </ol>
 </section>
 
 </main>
-<footer><div class="wrap">Yeh portal sirf sarkari public sources ki taraf rasta dikhata hai. Isme di gayi jaankari kanooni salah nahi hai. Adhikariyon ke naam aur scheme ke niyam badalte rehte hain, isliye har baat official portal par verify karein.</div></footer>
+<footer><div class="wrap">This guide only points to official public sources and is not legal advice. Officials' names and scheme rules change over time, so verify everything on the official portal.</div></footer>
 
 <script>
 (function(){
@@ -326,41 +321,41 @@ footer{border-top:1px solid var(--line);padding-block:20px 32px;color:var(--mute
   // Red flags
   const FLAGS=[
     {g:'MGNREGA',items:[
-      ['hi','Muster roll mein aise naam jo us samay gaon mein the hi nahi (bahar majdoori par, ya mar chuke)','nrega.nic.in → R1 → Muster Roll. Naamon ko gaon walon se milaayein.'],
-      ['hi','Kaam "complete" dikha hai par zameen par kaam nahi hua ya adhoora hai','Work status + GIS geo-tag photo dekhein, phir khud site par jaayein.'],
-      ['md','Ek hi jagah ka kaam alag-alag naam se do baar sanction','Saal-wise works list mein milte-julte naam aur location dhoondhein.'],
-      ['md','Majdoori 15 din se zyada der se mili, ya mili hi nahi','Payment / FTO report aur majdooron ki passbook milaayein.'],
-      ['md','Kaam machine (JCB) se hua par muster roll mein majdoor dikhaye gaye','Gaon walon se poochhein, photo/video saboot rakhein.'],
+      ['hi','Muster rolls list people who were not in the village at the time (migrant workers, or deceased)','nrega.nic.in → R1 → Muster Roll. Check the names with villagers.'],
+      ['hi','Work shown as "complete" but not done, or only half done, on the ground','Check work status and the GIS geo-tag photo, then visit the site yourself.'],
+      ['md','The same work sanctioned twice under different names','Look for similar names and locations in the year-wise works list.'],
+      ['md','Wages paid more than 15 days late, or not at all','Compare the payment / FTO report with workers\' passbooks.'],
+      ['md','Work done by machine (JCB) but labourers shown in the muster roll','Ask villagers; keep photo or video evidence.'],
     ]},
-    {g:'Panchayat fund (15th FC / eGramSwaraj)',items:[
-      ['hi','Bill/voucher ki rakam kaam ke size se bahut zyada (jaise 100 m naali ka 10 lakh)','eGramSwaraj → Financial Progress. RTI se estimate aur MB maangein.'],
-      ['md','Ek hi vendor ko baar-baar payment, bina tender/quotation','eGramSwaraj voucher list mein vendor naam dekhein.'],
-      ['md','Plan (GPDP) mein kaam nahi tha par payment ho gaya','Approved Action Plan aur kharch ki list milaayein.'],
-      ['md','Gram Sabha hui hi nahi, par minutes mein darj hai','Gram Sabha attendance register RTI se maangein.'],
+    {g:'Panchayat funds (15th FC / eGramSwaraj)',items:[
+      ['hi','Bill or voucher amount far too large for the work (e.g. ₹10 lakh for a 100 m drain)','eGramSwaraj → Financial Progress. Request the estimate and MB under RTI.'],
+      ['md','Repeated payments to the same vendor without tender or quotations','Check vendor names in the eGramSwaraj voucher list.'],
+      ['md','Payment made for a work that was not in the plan (GPDP)','Compare the Approved Action Plan with the expenditure list.'],
+      ['md','Gram Sabha never held, but minutes recorded anyway','Request the Gram Sabha attendance register under RTI.'],
     ]},
-    {g:'PMAY-G Awaas',items:[
-      ['hi','Pakke ghar walon ya ek parivar ke kai logon ko awaas mila','AwaasSoft beneficiary list ko gaon mein milaayein.'],
-      ['hi','Kisht ke badle commission maangi gayi','Seedha Lokayukta police. Paisa dene se pehle sampark karein.'],
-      ['md','Ghar "complete" dikha par bana nahi, ya photo kisi aur ghar ki','AwaasSoft geo-tag photo dekhein.'],
+    {g:'PMAY-G Housing',items:[
+      ['hi','Houses given to families who already have pucca homes, or several to one family','Check the AwaasSoft beneficiary list against the village.'],
+      ['hi','A cut demanded in exchange for releasing an instalment','Go straight to the Lokayukta police, before paying anything.'],
+      ['md','House shown "complete" but not built, or the photo is of another house','Check the AwaasSoft geo-tagged photos.'],
     ]},
-    {g:'Doosri schemes',items:[
-      ['md','Shauchalay ka paisa nikla par shauchalay nahi bana ya istemal layak nahi','sbm.gov.in labharthi list se milaayein.'],
-      ['md','Portal par nal connection darj, ghar mein paani nahi aata','ejalshakti.gov.in village report dekhein.'],
-      ['md','Ration dukaan par kam anaaj, ya parchi par zyada darj','Parchi ki photo rakhein, Food Inspector / CM Helpline par shikayat.'],
-      ['md','Anganwadi mein poshan aahaar baanta nahi gaya par register mein darj','CDPO Pawai ko shikayat, stock register RTI se.'],
+    {g:'Other schemes',items:[
+      ['md','Toilet grant withdrawn but no toilet built, or it is unusable','Compare with the sbm.gov.in beneficiary list.'],
+      ['md','Tap connection recorded on the portal, but no water at home','Check the village report on ejalshakti.gov.in.'],
+      ['md','Less grain given at the ration shop, or more written on the slip','Photograph the slip; complain to the Food Inspector or CM Helpline.'],
+      ['md','Anganwadi nutrition recorded in the register but not distributed','Complain to the CDPO Pawai; request the stock register under RTI.'],
     ]},
   ];
   const ticked=new Set(store.get('flags',[]));
   const fl=document.getElementById('flaglist');
   FLAGS.forEach((grp,gi)=>{
-    const d=document.createElement('div');d.className='flaggroup';
+    const d=document.createElement('div');
     const h=document.createElement('h3');h.textContent=grp.g;d.appendChild(h);
     grp.items.forEach((it,ii)=>{
       const id='f'+gi+'_'+ii;
       const lab=document.createElement('label');lab.className='flag '+it[0];
       lab.innerHTML='<input type="checkbox" id="'+id+'"><span></span><span class="how"></span>';
       lab.querySelector('span').textContent=it[1];
-      lab.querySelector('.how').textContent=(it[0]==='hi'?'Gambhir · ':'Dhyan dein · ')+it[2];
+      lab.querySelector('.how').textContent=(it[0]==='hi'?'Serious · ':'Watch · ')+it[2];
       const cb=lab.querySelector('input');cb.checked=ticked.has(id);lab.classList.toggle('on',cb.checked);
       cb.addEventListener('change',()=>{cb.checked?ticked.add(id):ticked.delete(id);lab.classList.toggle('on',cb.checked);store.set('flags',[...ticked]);tally()});
       d.appendChild(lab);
@@ -369,43 +364,43 @@ footer{border-top:1px solid var(--line);padding-block:20px 32px;color:var(--mute
   });
   function tally(){
     document.getElementById('tcount').textContent=ticked.size;
-    const hi=[...ticked].filter(id=>{const[g,i]=id.slice(1).split('_');return FLAGS[g].items[i][0]==='hi'}).length;
-    document.getElementById('thi').textContent=hi?'('+hi+' gambhir)':'';
+    const hi=[...ticked].filter(id=>{const[g,i]=id.slice(1).split('_');return FLAGS[g]&&FLAGS[g].items[i]&&FLAGS[g].items[i][0]==='hi'}).length;
+    document.getElementById('thi').textContent=hi?'('+hi+' serious)':'';
   }
   tally();
   document.getElementById('toRti').addEventListener('click',()=>{show('rti');window.scrollTo({top:0})});
 
   // RTI
   const ITEMS=[
-    ['mg','MGNREGA ke antargat sanchalit sabhi kaaryon ki soochi, swikrit rashi, vyay rashi aur vartaman sthiti'],
-    ['mr','Uprokt kaaryon ke muster roll ki pramanit pratiyan'],
-    ['mb','Kaaryon ke estimate (praakkalan), Measurement Book (MB) aur mulyankan (valuation) ki pramanit pratiyan'],
-    ['fc','15ve Vitt Aayog evam anya madon se prapt rashi aur uske vyay ka varshvar vivran'],
-    ['cb','Gram Panchayat ki cash book aur bhugtan vouchers / bills ki pramanit pratiyan'],
-    ['vd','Jin vendor / thekedar / sapplier ko bhugtan kiya gaya, unke naam aur rashi ki soochi'],
-    ['gp','Gram Panchayat Vikas Yojana (GPDP) aur Gram Sabha ke prastav evam upasthiti register ki pratiyan'],
-    ['aw','Pradhan Mantri Awaas Yojana (Gramin) ke labharthiyon ki soochi, chayan ka aadhar aur kishton ka vivran'],
-    ['sb','Swachh Bharat Mission ke antargat shauchalay labharthiyon ki soochi aur bhugtan vivran'],
-    ['sa','Social audit report aur us par ki gayi karyavahi (vasooli sahit) ka vivran'],
+    ['mg','List of all MGNREGA works with sanctioned amount, expenditure and current status'],
+    ['mr','Certified copies of muster rolls for those works'],
+    ['mb','Certified copies of estimates, Measurement Books (MB) and valuations of works'],
+    ['fc','Year-wise funds received under the 15th Finance Commission and other heads, and their use'],
+    ['cb','Certified copies of the Gram Panchayat cash book and payment vouchers / bills'],
+    ['vd','Names of vendors / contractors / suppliers paid, with amounts'],
+    ['gp','Gram Panchayat Development Plan (GPDP), Gram Sabha resolutions and attendance register'],
+    ['aw','PMAY-G beneficiary list, basis of selection and instalment payments'],
+    ['sb','Swachh Bharat Mission toilet beneficiary list and payment details'],
+    ['sa','Social audit reports and action taken on them, including recoveries'],
   ];
-  const HI={
-    mg:'महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार गारंटी योजना (मनरेगा) के अंतर्गत स्वीकृत सभी कार्यों की सूची, प्रत्येक कार्य की स्वीकृत राशि, व्यय राशि एवं वर्तमान स्थिति।',
-    mr:'उपरोक्त कार्यों के मस्टर रोल की प्रमाणित प्रतियाँ।',
-    mb:'कार्यों के प्राक्कलन (एस्टीमेट), माप पुस्तिका (मेजरमेंट बुक) एवं मूल्यांकन की प्रमाणित प्रतियाँ।',
-    fc:'15वें वित्त आयोग एवं अन्य मदों से प्राप्त राशि तथा उसके व्यय का वर्षवार विवरण।',
-    cb:'ग्राम पंचायत की कैश बुक एवं भुगतान वाउचर / बिलों की प्रमाणित प्रतियाँ।',
-    vd:'जिन वेंडर / ठेकेदार / सप्लायर को भुगतान किया गया, उनके नाम एवं भुगतान राशि की सूची।',
-    gp:'ग्राम पंचायत विकास योजना (GPDP) तथा ग्राम सभा के प्रस्ताव एवं उपस्थिति पंजी की प्रमाणित प्रतियाँ।',
-    aw:'प्रधानमंत्री आवास योजना (ग्रामीण) के लाभार्थियों की सूची, चयन का आधार एवं किश्तों के भुगतान का विवरण।',
-    sb:'स्वच्छ भारत मिशन (ग्रामीण) के अंतर्गत शौचालय लाभार्थियों की सूची एवं भुगतान विवरण।',
-    sa:'सामाजिक अंकेक्षण (सोशल ऑडिट) प्रतिवेदन एवं उस पर की गई कार्यवाही (वसूली सहित) का विवरण।',
+  const FULL={
+    mg:'A list of all works sanctioned under the Mahatma Gandhi National Rural Employment Guarantee Scheme (MGNREGA), with the sanctioned amount, expenditure incurred and current status of each work.',
+    mr:'Certified copies of the muster rolls for the above works.',
+    mb:'Certified copies of the estimates, Measurement Books and valuation reports for the above works.',
+    fc:'Year-wise details of funds received under the 15th Finance Commission and all other heads, and the expenditure made from them.',
+    cb:'Certified copies of the Gram Panchayat cash book and all payment vouchers / bills.',
+    vd:'Names of all vendors / contractors / suppliers to whom payments were made, with the amount paid to each.',
+    gp:'Certified copies of the Gram Panchayat Development Plan (GPDP) and of Gram Sabha resolutions and attendance registers.',
+    aw:'The list of beneficiaries under Pradhan Mantri Awaas Yojana (Gramin), the basis of their selection, and details of instalments paid.',
+    sb:'The list of toilet beneficiaries under Swachh Bharat Mission (Gramin) and details of payments made.',
+    sa:'Copies of social audit reports and details of action taken on them, including recoveries made.',
   };
   const OFF={
-    gp:g=>'लोक सूचना अधिकारी\nकार्यालय ग्राम पंचायत '+g+'\nजनपद पंचायत पवई, जिला पन्ना (म.प्र.)',
-    janpad:()=>'लोक सूचना अधिकारी\nकार्यालय जनपद पंचायत पवई\nजिला पन्ना (म.प्र.)',
-    tehsil:()=>'लोक सूचना अधिकारी\nकार्यालय तहसीलदार, तहसील पवई\nजिला पन्ना (म.प्र.)',
-    zila:()=>'लोक सूचना अधिकारी\nकार्यालय जिला पंचायत पन्ना\nजिला पन्ना (म.प्र.)',
-    coll:()=>'लोक सूचना अधिकारी\nकार्यालय कलेक्टर, जिला पन्ना (म.प्र.)',
+    gp:g=>'The Public Information Officer\nOffice of the Gram Panchayat '+g+'\nJanpad Panchayat Pawai, District Panna (M.P.)',
+    janpad:()=>'The Public Information Officer\nOffice of the Janpad Panchayat Pawai\nDistrict Panna (M.P.)',
+    tehsil:()=>'The Public Information Officer\nOffice of the Tehsildar, Tehsil Pawai\nDistrict Panna (M.P.)',
+    zila:()=>'The Public Information Officer\nOffice of the Zila Panchayat Panna\nDistrict Panna (M.P.)',
+    coll:()=>'The Public Information Officer\nOffice of the Collector, District Panna (M.P.)',
   };
   const box=document.getElementById('rtiitems');
   const defaults=new Set(store.get('rtiitems',['mg','mb','fc','vd']));
@@ -421,54 +416,54 @@ footer{border-top:1px solid var(--line);padding-block:20px 32px;color:var(--mute
     const g=$('r_gp').value.trim()||'________';
     const sel=ITEMS.filter(([k])=>$('ri_'+k).checked).map(([k])=>k);
     store.set('rtiitems',sel);
-    const lines=sel.map(k=>HI[k]);
+    const lines=sel.map(k=>FULL[k]);
     const ex=$('r_extra').value.trim(); if(ex) lines.push(ex);
-    const scope=$('r_office').value==='gp'?'ग्राम पंचायत '+g:'ग्राम पंचायत '+g+' (जनपद पंचायत पवई)';
+    const scope=$('r_office').value==='gp'?'Gram Panchayat '+g:'Gram Panchayat '+g+' (Janpad Panchayat Pawai)';
     const bpl=$('r_bpl').checked;
     const today=new Date().toLocaleDateString('en-GB').replace(/\//g,'-');
     $('rtiout').textContent=
-'प्रति,\n'+OFF[$('r_office').value](g)+'\n\n'+
-'विषय: सूचना का अधिकार अधिनियम, 2005 की धारा 6(1) के अंतर्गत सूचना प्राप्त करने हेतु आवेदन।\n\n'+
-'महोदय,\n'+
-'कृपया '+scope+' से संबंधित, दिनांक '+($('r_from').value||'____')+' से '+($('r_to').value||'____')+' तक की अवधि की निम्नलिखित सूचना प्रदान करें:\n\n'+
+'To,\n'+OFF[$('r_office').value](g)+'\n\n'+
+'Subject: Application for information under Section 6(1) of the Right to Information Act, 2005\n\n'+
+'Sir / Madam,\n'+
+'Please provide the following information relating to '+scope+' for the period from '+($('r_from').value||'____')+' to '+($('r_to').value||'____')+':\n\n'+
 (lines.length?lines.map((l,i)=>(i+1)+'. '+l).join('\n'):'1. ____________________')+'\n\n'+
-'सूचना की प्रमाणित प्रतियाँ उपलब्ध कराने हेतु जो भी शुल्क देय हो, कृपया लिखित में सूचित करें। यदि माँगी गई सूचना किसी अन्य लोक प्राधिकारी से संबंधित है, तो धारा 6(3) के अंतर्गत आवेदन 5 दिवस में उसे अंतरित करें।\n\n'+
-(bpl?'आवेदक गरीबी रेखा से नीचे (BPL) श्रेणी का है, अतः आवेदन शुल्क से मुक्त है। BPL कार्ड की प्रति संलग्न है।\n\n':'आवेदन शुल्क ₹10 (नकद / पोस्टल ऑर्डर / चालान क्र. ________) संलग्न है।\n\n')+
-'आवेदक\n'+
-'नाम: '+($('r_name').value||'________')+'\n'+
-'पिता/पति का नाम: '+($('r_father').value||'________')+'\n'+
-'पता: '+($('r_addr').value||'________')+'\n'+
-'दिनांक: '+today+'\n'+
-'हस्ताक्षर: ________';
+'Please inform me in writing of any additional fee payable for certified copies. If any part of this information is held by another public authority, kindly transfer the application under Section 6(3) within 5 days.\n\n'+
+(bpl?'The applicant belongs to the Below Poverty Line (BPL) category and is exempt from the application fee. A copy of the BPL card is attached.\n\n':'The application fee of ₹10 is enclosed (cash / postal order / challan no. ________).\n\n')+
+'Applicant\n'+
+'Name: '+($('r_name').value||'________')+'\n'+
+'Father\'s / Husband\'s name: '+($('r_father').value||'________')+'\n'+
+'Address: '+($('r_addr').value||'________')+'\n'+
+'Date: '+today+'\n'+
+'Signature: ________';
   }
   $('rtiform').addEventListener('input',build);
   $('rtiform').addEventListener('submit',e=>e.preventDefault());
   build();
   $('copyrti').addEventListener('click',()=>{
     const t=$('rtiout').textContent, st=$('copystat');
-    const fallback=()=>{const r=document.createRange();r.selectNodeContents($('rtiout'));const s=getSelection();s.removeAllRanges();s.addRange(r);st.textContent='Text select ho gaya. Ab Ctrl/Cmd+C dabayein.'};
-    try{navigator.clipboard.writeText(t).then(()=>{st.textContent='Copy ho gaya.'},fallback)}catch(e){fallback()}
+    const fallback=()=>{const r=document.createRange();r.selectNodeContents($('rtiout'));const s=getSelection();s.removeAllRanges();s.addRange(r);st.textContent='Text selected. Press Ctrl/Cmd+C to copy.'};
+    try{navigator.clipboard.writeText(t).then(()=>{st.textContent='Copied.'},fallback)}catch(e){fallback()}
   });
 
   // Ask Claude
-  const SYS='Tum ek civic jaankari sahayak ho jo Gram Murachh, Tehsil/Janpad Pawai, Zila Panna, Madhya Pradesh ke ek naagrik ki madad karta hai. Jawab Roman Hinglish mein do (user jaisi bhasha), seedha aur steps mein. Niyam: (1) Tumhare paas live sarkari data nahi hai; kabhi bhi kisi adhikari ka naam, phone number, ya kisi scheme ki rakam/figure mat banao. Batao ki woh kis official portal par kaise milega (egramswaraj.gov.in, nrega.nic.in, pmayg.nic.in, sbm.gov.in, ejalshakti.gov.in, pmkisan.gov.in, samagra.gov.in, mpbhulekh.gov.in, panna.nic.in, lgdirectory.gov.in, cmhelpline.mp.gov.in, rtionline.mp.gov.in, mplokayukta.nic.in, eow.mp.gov.in, pgportal.gov.in). (2) Kisi vyakti ko bhrasht mat kaho; red flags aur saboot ikattha karne, RTI aur sahi shikayat manch ka rasta batao. (3) MP mein RTI fees Rs 10, BPL ke liye maaf; jawab 30 din. (4) Jawab 250 shabdon ke andar rakho, markdown headings mat use karo, numbered steps theek hain.';
   if(STANDALONE) return;
+  const SYS='You are a civic information assistant helping a resident of Murachh village, Pawai Tehsil/Janpad, Panna District, Madhya Pradesh, India. Reply in the same language as the question (default English), plainly and in steps. Rules: (1) You have no live government data. Never invent any official\'s name, phone number, or scheme figures. Explain which official portal has it and how to find it (egramswaraj.gov.in, nrega.nic.in, pmayg.nic.in, sbm.gov.in, ejalshakti.gov.in, pmkisan.gov.in, samagra.gov.in, mpbhulekh.gov.in, panna.nic.in, lgdirectory.gov.in, cmhelpline.mp.gov.in, rtionline.mp.gov.in, mplokayukta.nic.in, eow.mp.gov.in, pgportal.gov.in). (2) Never call any person corrupt; explain red flags, how to gather evidence, and the right RTI and complaint channels. (3) RTI fee in MP is Rs 10, waived for BPL; reply due in 30 days. (4) Keep answers under 250 words, no markdown headings; numbered steps are fine.';
   const ans=$('ans'),stat=$('askstat'),btn=$('askbtn'),q=$('q');
   let ctrl=null, sample=null;
   document.querySelectorAll('#chips .chip').forEach(c=>c.addEventListener('click',()=>{q.value=c.textContent;q.focus()}));
   btn.addEventListener('click',async()=>{
     const text=q.value.trim(); if(!text){q.focus();return}
-    if(!sample){stat.textContent='Claude se jud rahe hain…';try{sample=await window.claude?.use?.('sample')}catch(e){sample=null}}
+    if(!sample){stat.textContent='Connecting to Claude…';try{sample=await window.claude?.use?.('sample')}catch(e){sample=null}}
     if(!sample){$('askbox').hidden=true;$('asknote').hidden=false;return}
     if(ctrl) ctrl.abort(); ctrl=new AbortController();
-    btn.disabled=true; stat.textContent='Soch raha hai…'; ans.textContent='';
+    btn.disabled=true; stat.textContent='Thinking…'; ans.textContent='';
     try{
-      const r=await sample([{role:'user',content:SYS+'\n\nSawaal: '+text}],{signal:ctrl.signal,cache:false,onText:({text})=>{ans.textContent=text;stat.textContent=''}});
+      const r=await sample([{role:'user',content:SYS+'\n\nQuestion: '+text}],{signal:ctrl.signal,cache:false,onText:({text})=>{ans.textContent=text;stat.textContent=''}});
       ans.textContent=r.text; stat.textContent='';
     }catch(e){
       if(e&&e.code==='not_granted'){$('askbox').hidden=true;$('asknote').hidden=false}
-      else if(e&&e.code==='rate_limited'){stat.textContent='Abhi bahut sawaal ho gaye. Thodi der baad poochhiye.'}
-      else if(e&&e.name!=='AbortError'){stat.textContent='Jawab nahi mil paaya. Dobara koshish karein.'; if(e.text) ans.textContent=e.text}
+      else if(e&&e.code==='rate_limited'){stat.textContent='Too many questions right now. Please try again in a little while.'}
+      else if(e&&e.name!=='AbortError'){stat.textContent='Couldn\'t get an answer. Please try again.'; if(e.text) ans.textContent=e.text}
     }finally{btn.disabled=false}
   });
 })();
